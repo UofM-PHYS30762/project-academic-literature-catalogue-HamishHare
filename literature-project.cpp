@@ -45,13 +45,23 @@ int main()
     // a2.print_name();
 
     // Testing Setters/Getters
-    Author a7;
-    a7.set_first_name("first");
-    a7.set_middle_names("middle");
-    a7.set_last_name("last");
-    std::cout<<a7.get_first_name()<<", "<<a7.get_middle_names()<<", "<<a7.get_last_name()<<std::endl;
-    a7.set_names("aaaaaaaaa", "BBBBBB", "ccC-cC");
-    a7.print_name();
+    // Author a7;
+    // a7.set_first_name("first");
+    // a7.set_middle_names("middle");
+    // a7.set_last_name("last");
+    // std::cout<<a7.get_first_name()<<", "<<a7.get_middle_names()<<", "<<a7.get_last_name()<<std::endl;
+    // a7.set_names("aaaaaaaaa", "BBBBBB", "ccC-cC");
+    // a7.print_name();
+
+    // Testing formatting
+    Author a8{"roCkY THe", "Middle nAmes", "balBOa"};
+    a8.print_name();
+    a8.set_first_name("fIRst");
+    a8.set_middle_names("miDDle fiGht");
+    a8.set_last_name("LasTe");
+    a8.print_name();
+    a8.set_names("do-ray-mi", "far so lah", "tea-doh");
+    a8.print_name();
 
     return 0;
 }

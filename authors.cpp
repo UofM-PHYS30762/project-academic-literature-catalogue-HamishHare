@@ -9,11 +9,11 @@
 #include <string>
 #include <cctype> // isalpha
 #include <string_view> // efficient string viewing when no editting
-#include <algorithm> // any_of/all_of
+#include <algorithm> // any_of/all_of, transform, etc.
 #include "authors.h"
 using std::string;
 
-namespace author_validate
+namespace author_utils
 {
   // Check whether 'char_to_check' is consecutively repeated in 'name'
   bool is_repeated_char(const std::string_view& name, const char char_to_check)
@@ -31,6 +31,7 @@ namespace author_validate
     });
   }
 
+  // Check if a provided string is a valid name format 
   bool is_valid_name(const std::string_view& name)
   {
     constexpr size_t max_name_length = 40;
@@ -60,6 +61,25 @@ namespace author_validate
 
     return true;
   }
+
+  // Format names so that the first letter of any new word is capitalised
+  void format_name(string& input_string)
+  {
+    if(!input_string.empty())
+    {
+      bool capitalise_next{true};
+      for (char& c : input_string)
+      {
+        if(c == ' ') capitalise_next = true;
+        else if(capitalise_next)
+        {
+          c = std::toupper(static_cast<unsigned char>(c));
+          capitalise_next = false;
+        }
+        else c = std::tolower(static_cast<unsigned char>(c));
+      }
+    }
+  }
 }
 
 // Rule of 5
@@ -75,9 +95,12 @@ Author::Author()
 Author::Author(const string& _first_name, const string& _middle_names, const string& _last_name)
 {
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Author constructor"<<std::endl;
-  if(author_validate::is_valid_name(_first_name)) first_name = _first_name;
-  if(author_validate::is_valid_name(_middle_names)) middle_names = _middle_names;
-  if(author_validate::is_valid_name(_last_name)) last_name = _last_name;
+  if(author_utils::is_valid_name(_first_name)) first_name = _first_name;
+  if(author_utils::is_valid_name(_middle_names)) middle_names = _middle_names;
+  if(author_utils::is_valid_name(_last_name)) last_name = _last_name;
+  author_utils::format_name(first_name);
+  author_utils::format_name(middle_names);
+  author_utils::format_name(last_name);
 }
 // .. Copy constructor
 Author::Author(const Author& author_to_copy)
@@ -127,21 +150,27 @@ Author& Author::operator=(Author&& author_to_move)
 // Setters
 void Author::set_names(const string& _first_name, const string& _middle_names, const string& _last_name)
 {
-  if(author_validate::is_valid_name(_first_name)) first_name = _first_name;
-  if(author_validate::is_valid_name(_middle_names)) middle_names = _middle_names;
-  if(author_validate::is_valid_name(_last_name)) last_name = _last_name;
+  if(author_utils::is_valid_name(_first_name)) first_name = _first_name;
+  if(author_utils::is_valid_name(_middle_names)) middle_names = _middle_names;
+  if(author_utils::is_valid_name(_last_name)) last_name = _last_name;
+  author_utils::format_name(first_name);
+  author_utils::format_name(middle_names);
+  author_utils::format_name(last_name);
 }
 void Author::set_first_name(const string& _first_name)
 {
-  if(author_validate::is_valid_name(_first_name)) first_name = _first_name;
+  if(author_utils::is_valid_name(_first_name)) first_name = _first_name;
+  author_utils::format_name(first_name);
 }
 void Author::set_middle_names(const string& _middle_names)
 {
-  if(author_validate::is_valid_name(_middle_names)) middle_names = _middle_names;
+  if(author_utils::is_valid_name(_middle_names)) middle_names = _middle_names;
+  author_utils::format_name(middle_names);
 }
 void Author::set_last_name(const string& _last_name)
 {
-  if(author_validate::is_valid_name(_last_name)) last_name = _last_name;
+  if(author_utils::is_valid_name(_last_name)) last_name = _last_name;
+  author_utils::format_name(last_name);
 }
 
 // Print Information
