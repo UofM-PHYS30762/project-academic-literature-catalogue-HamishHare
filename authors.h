@@ -1,12 +1,12 @@
 // PHYS 30762 Programming in C++
 // Literature Catalogue Project
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// AuthorList + Author interfaces
+// Author interface
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Hamish Hare
 
-#ifndef AUTHORS_H
-#define AUTHORS_H
+#ifndef AUTHOR_H
+#define AUTHOR_H
 
 #include <string>
 #include <iostream>
@@ -52,5 +52,4 @@ public:
   void print_name() const;
 };
 
-
-#endif // AUTHORS_H
+#endif // AUTHOR_H

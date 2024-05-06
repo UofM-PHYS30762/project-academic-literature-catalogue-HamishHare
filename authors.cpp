@@ -1,7 +1,7 @@
 // PHYS 30762 Programming in C++
 // Literature Catalogue Project
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// AuthorList + Author implementations
+// Author implementation
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Hamish Hare
 

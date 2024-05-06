@@ -7,61 +7,33 @@
 
 #include <memory> // smart pointers
 #include "authors.h"
+#include "authorlist.h"
 
 int main()
 {
-    // Testing validation
-    // Author a0{"Test", "", "Passed"}; // Valid
-    // Author a0{"T-e-s-t", "-", "P a s s e d"}; // Valid
-    // Author a0{"abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "", ""}; // Too long
-    // Author a0{"abcde4", "", "Passed"}; // Invalid character
-    // Author a0{"abcd'e", "", "Passed"}; // Invalid character
-    // Author a0{"a/!bcde4", "", "Passed"}; // Invalid character
-    // Author a0{"abcdefgh  ", "", "Passed"}; // Consecutive space
-    // Author a0{"--abcdefgh", "", "Passed"}; // Consecutive hyphens
-    // a0.print_name();
-    
-    // Testing Ro5
-    // Author a1;
-    // a1.print_name();
+  // Testing AuthorList
+  Author a1{"Rock", "And", "Roll"};
+  Author a2{"Stock", "and a", "Poll"};
+  Author a3{"I am", "A new", "Name-okay"};
 
-    // Author a2{"Rock", "And", "Roll"};
-    // a2.print_name();
-    
-    // Author a3{a2};
-    // a3.print_name();
+  std::cout<<"===== al1 ====="<<std::endl;
+  AuthorList al1{};
+  al1.print_authors();
+  std::cout<<"==============="<<std::endl;
 
-    // Author a4{std::move(a2)};
-    // a4.print_name();
-    // a2.print_name();
+  std::cout<<"===== al2 ====="<<std::endl;
+  AuthorList al2{a1, a2};
+  al2.print_authors();
+  al2.add_author(a3);
+  al2.print_authors();
+  std::cout<<"==============="<<std::endl;
 
-    // Author a5;
-    // a5=a2;
-    // a2.print_name();
+  std::cout<<"===== al3 ====="<<std::endl;
+  AuthorList al3{a1};
+  al3.print_authors();
+  al3.add_author(a3);
+  al3.print_authors();
+  std::cout<<"==============="<<std::endl;
 
-    // Author a6;
-    // a6=std::move(a2);
-    // a6.print_name();
-    // a2.print_name();
-
-    // Testing Setters/Getters
-    // Author a7;
-    // a7.set_first_name("first");
-    // a7.set_middle_names("middle");
-    // a7.set_last_name("last");
-    // std::cout<<a7.get_first_name()<<", "<<a7.get_middle_names()<<", "<<a7.get_last_name()<<std::endl;
-    // a7.set_names("aaaaaaaaa", "BBBBBB", "ccC-cC");
-    // a7.print_name();
-
-    // Testing formatting
-    Author a8{"roCkY THe", "Middle nAmes", "balBOa"};
-    a8.print_name();
-    a8.set_first_name("fIRst");
-    a8.set_middle_names("miDDle fiGht");
-    a8.set_last_name("LasTe");
-    a8.print_name();
-    a8.set_names("do-ray-mi", "far so lah", "tea-doh");
-    a8.print_name();
-
-    return 0;
+  return 0;
 }
