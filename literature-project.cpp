@@ -11,7 +11,7 @@
 int main()
 {
     // Testing validation
-    Author a0{"Test", "", "Passed"}; // Valid
+    // Author a0{"Test", "", "Passed"}; // Valid
     // Author a0{"T-e-s-t", "-", "P a s s e d"}; // Valid
     // Author a0{"abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "", ""}; // Too long
     // Author a0{"abcde4", "", "Passed"}; // Invalid character
@@ -19,22 +19,14 @@ int main()
     // Author a0{"a/!bcde4", "", "Passed"}; // Invalid character
     // Author a0{"abcdefgh  ", "", "Passed"}; // Consecutive space
     // Author a0{"--abcdefgh", "", "Passed"}; // Consecutive hyphens
-    a0.print_name();
-
-    // std::cout<<is_valid_name("test")<<std::endl; // Valid
-    // std::cout<<is_valid_name("t-e-s-t")<<std::endl; // Valid
-    // std::cout<<is_valid_name("Paul AstonSSDSD")<<std::endl; // Valid
-    // //std::cout<<is_valid_name("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz")<<std::endl; // Too long
-    // //std::cout<<is_valid_name("abcde4")<<std::endl; // Invalid character
-    // //std::cout<<is_valid_name("abcdefgh  ")<<std::endl; // Consecutive space
-    // std::cout<<is_valid_name("--abcdefgh")<<std::endl; // Consecutive hyphens
+    // a0.print_name();
     
     // Testing Ro5
-    Author a1;
-    a1.print_name();
+    // Author a1;
+    // a1.print_name();
 
-    Author a2{"Rock", "And", "Roll"};
-    a2.print_name();
+    // Author a2{"Rock", "And", "Roll"};
+    // a2.print_name();
     
     // Author a3{a2};
     // a3.print_name();
@@ -51,6 +43,15 @@ int main()
     // a6=std::move(a2);
     // a6.print_name();
     // a2.print_name();
+
+    // Testing Setters/Getters
+    Author a7;
+    a7.set_first_name("first");
+    a7.set_middle_names("middle");
+    a7.set_last_name("last");
+    std::cout<<a7.get_first_name()<<", "<<a7.get_middle_names()<<", "<<a7.get_last_name()<<std::endl;
+    a7.set_names("aaaaaaaaa", "BBBBBB", "ccC-cC");
+    a7.print_name();
 
     return 0;
 }

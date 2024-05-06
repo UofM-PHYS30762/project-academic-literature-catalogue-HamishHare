@@ -124,6 +124,26 @@ Author& Author::operator=(Author&& author_to_move)
   return *this;
 }
 
+// Setters
+void Author::set_names(const string& _first_name, const string& _middle_names, const string& _last_name)
+{
+  if(author_validate::is_valid_name(_first_name)) first_name = _first_name;
+  if(author_validate::is_valid_name(_middle_names)) middle_names = _middle_names;
+  if(author_validate::is_valid_name(_last_name)) last_name = _last_name;
+}
+void Author::set_first_name(const string& _first_name)
+{
+  if(author_validate::is_valid_name(_first_name)) first_name = _first_name;
+}
+void Author::set_middle_names(const string& _middle_names)
+{
+  if(author_validate::is_valid_name(_middle_names)) middle_names = _middle_names;
+}
+void Author::set_last_name(const string& _last_name)
+{
+  if(author_validate::is_valid_name(_last_name)) last_name = _last_name;
+}
+
 // Print Information
 void Author::print_name() const
 {

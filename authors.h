@@ -38,6 +38,16 @@ public:
   // .. Move assignment operator
   Author& operator=(Author&& author_to_move);
 
+  // Getters/Setters
+  string get_first_name() const {return first_name;}
+  string get_middle_names() const {return middle_names;}
+  string get_last_name() const {return last_name;}
+
+  void set_names(const string& _first_name, const string& _middle_names, const string& _last_name);
+  void set_first_name(const string& _first_name);
+  void set_middle_names(const string& _middle_names);
+  void set_last_name(const string& _last_name);
+
   // Print Information
   void print_name() const;
 };
