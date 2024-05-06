@@ -105,7 +105,7 @@ Author::Author(const string& _first_name, const string& _middle_names, const str
 // .. Copy constructor
 Author::Author(const Author& author_to_copy)
 {
-  if(lit_cat_consts::show_messages) std::cout << "Calling Author copy constructor" << std::endl;
+  if(lit_cat_consts::show_messages) std::cout<<"Calling Author copy constructor"<<std::endl;
   // Copy the data members
   first_name = author_to_copy.first_name;
   middle_names = author_to_copy.middle_names;
