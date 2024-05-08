@@ -10,7 +10,7 @@
 
 #include <string>
 #include <iostream>
-#include "lit_cat_consts.cpp"
+#include "lit_cat_utils.h"
 using std::string;
 
 // A class to hold author names

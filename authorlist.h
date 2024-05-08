@@ -13,13 +13,16 @@
 #include <list>
 #include <initializer_list>
 #include <type_traits> // type-checking
-#include "lit_cat_consts.cpp"
+#include "lit_cat_utils.h"
 #include "authors.h"
 
 class AuthorList
 {
 private:
   std::list<Author> authors;
+  void print_authors_with_index() const; // Utility function
+  bool is_valid_index(size_t index) const; // Utility function
+  int get_index_from_user() const; // Utility function
 public:
   // Rule of 5
   // .. Default constructor
@@ -40,6 +43,9 @@ public:
 
   // Getters/Setters
   void add_author(const Author& author);
+  void remove_author_at(const size_t index_to_remove);
+  void remove_author();
+  const Author& get_author_at(const size_t index_to_get) const;
 
   // Print Information
   void print_authors() const;

@@ -7,6 +7,7 @@
 
 #include <list>
 #include <initializer_list>
+#include <limits> // for numeric_limits
 #include "authors.h"
 #include "authorlist.h"
 
@@ -71,17 +72,141 @@ AuthorList& AuthorList::operator=(AuthorList&& authorlist_to_move)
   return *this;
 }
 
+// Utility function for printing authors with an index
+void AuthorList::print_authors_with_index() const
+{
+  size_t index = 0;
+  for (const auto& author : authors) {
+    std::cout<<index++<<": ";
+    author.print_name();
+  }
+}
+// Utility function for checking a given index is valid
+bool AuthorList::is_valid_index(const size_t index) const
+{
+  if(index<0 || index>=authors.size())
+  {
+    std::cerr<<"Error: Index out of range."<<std::endl;
+    return false;
+  }
+  else return true;
+}
+// Utility function for prompting a user for an index
+// .. used for cases with more than one author
+int AuthorList::get_index_from_user() const
+{
+  int index;
+  size_t list_size{authors.size()};
+  size_t attempts{0};
+  const size_t max_attempts{5};
+  // Prompt for an input
+  std::cout<<"Enter an index from 0 to "<<list_size-1<<" (or -1 to exit):";
+  // Repeat until a valid index or -1 (to quit) is entered,
+  // .. or max_attempts attempts are made
+  while(attempts<max_attempts)
+  {
+    //if(!(std::cin>>index) || index<-1 || index>=list_size || std::cin.peek()!='\n')
+    if(!(std::cin>>index) || (index!=-1 && (index<0 || index>=list_size)) || std::cin.peek()!='\n')
+    {
+      std::cout<<"Invalid input. Please enter a valid index"
+               <<" from 0 to "<<list_size-1<<" (or -1 to exit):";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+    else break;  // Valid index, exit the loop
+    attempts++;
+  }
+  if(attempts==max_attempts)
+  {
+    std::cout<<"\nMaximum attempts reached. "<<std::endl;
+    index = -1;
+  }
+  return index;
+}
+
 // Getters/Setters
+// .. add an author to the back of the list
 void AuthorList::add_author(const Author& author)
 {
   authors.push_back(author);
+}
+// .. remove an author from a given position in the list
+void AuthorList::remove_author_at(const size_t index_to_remove)
+{
+  if(!is_valid_index(index_to_remove)) return;
+
+  auto author_iter = authors.begin();
+  std::advance(author_iter, index_to_remove);
+  authors.erase(author_iter);
+}
+// .. remove an author by prompting for an index first
+void AuthorList::remove_author()
+{
+  size_t list_size{authors.size()};
+  // End early if no authors in the list
+  if(list_size==0)
+  {
+    std::cout<<"No authors to remove."<<std::endl;
+    return;
+  }
+  // If only one author, confirm if they want to remove it
+  else if(list_size==1)
+  {
+    std::cout<<"There is only one author listed: ";
+    print_authors();
+    std::cout<<"Are you sure you want to remove them?"<<std::endl;
+    bool confirmed{lit_cat_utils::get_yes_no_from_user()};
+    if(confirmed) // remove the author
+    {
+      remove_author_at(0);
+      std::cout<<"Author removed."<<std::endl;
+    }
+    else std::cout<<"Author not removed."<<std::endl;
+  }
+  // If more than one author ask which to remove
+  else
+  {
+    // Prompt for an author to remove
+    std::cout<<"Which author would you like to"
+            <<" remove from the list below?"<<std::endl;
+    print_authors_with_index();
+    // Get the index of chosen author from user
+    int chosen_index{get_index_from_user()};
+    if(chosen_index==-1) // no index given
+    {
+      std::cout<<"No authors removed"<<std::endl;
+      return;
+    }
+    // Remove the chosen index
+    remove_author_at(static_cast<size_t>(chosen_index));
+  }
+}
+// .. get an author from a given position in the list
+const Author& AuthorList::get_author_at(const size_t index_to_get) const
+{
+  if(!is_valid_index(index_to_get)) exit(2);
+
+  auto author_iter = authors.begin();
+  std::advance(author_iter, index_to_get);
+  return *author_iter;
 }
 
 // Print Information
 void AuthorList::print_authors() const
 {
+  int count{0};
   for(auto author{authors.begin()}; author!=authors.end(); ++author)
   {
+    // End early if more than 6 authors, with et al.
+    count++;
+    if(count>6)
+    {
+      std::cout<<"et al."<<std::endl;
+      return;
+    }
+    // Print author name
     author->print_name();
   }
 }
+
+// 
