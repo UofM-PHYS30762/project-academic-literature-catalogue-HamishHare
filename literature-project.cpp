@@ -60,26 +60,35 @@ int main()
   // Test with index
   // al2.remove_author_at(2);
   // al2.print_authors();
-  // al2.get_author_at(1).print_name();
+  // al2.get_author_at(1)->print_name();
 
   // Test adding many authors and printing names
-  std::cout<<"===== al9 ====="<<std::endl; // Param. constr. arb. Author arguments
-  AuthorList al9{a1, a1, a1, a2, a2, a2, a3, a3, a3};
-  al9.print_authors();
+  // std::cout<<"===== al9 ====="<<std::endl; // Param. constr. arb. Author arguments
+  // AuthorList al9{a1, a1, a1, a2, a2, a2, a3, a3, a3};
+  // al9.print_authors();
+  // std::cout<<"==============="<<std::endl;
+  // // Test removing author when prompted
+  // al9.remove_author();
+  // al9.print_authors();
+  // std::cout<<"==============="<<std::endl;
+  // AuthorList al10;
+  // al10.print_authors();
+  // al10.remove_author();
+  // std::cout<<"==============="<<std::endl;
+  // AuthorList al11{a1};
+  // al11.print_authors();
+  // al11.remove_author();
+  // al11.print_authors();
+  // std::cout<<"==============="<<std::endl;
+
+  // Test get_author() functions
+  std::cout<<"===== al12 ====="<<std::endl;
+  // AuthorList al12;
+  // AuthorList al12{a1};
+  AuthorList al12{a1, a2, a3, a1, a2};
+  al12.print_authors();
   std::cout<<"==============="<<std::endl;
-  // Test removing author when prompted
-  al9.remove_author();
-  al9.print_authors();
-  std::cout<<"==============="<<std::endl;
-  AuthorList al10;
-  al10.print_authors();
-  al10.remove_author();
-  std::cout<<"==============="<<std::endl;
-  AuthorList al11{a1};
-  al11.print_authors();
-  al11.remove_author();
-  al11.print_authors();
-  std::cout<<"==============="<<std::endl;
+  al12.get_author()->print_name();
 
   return 0;
 }

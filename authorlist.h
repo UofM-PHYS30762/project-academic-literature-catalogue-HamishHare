@@ -12,9 +12,10 @@
 #include <iostream>
 #include <list>
 #include <initializer_list>
-#include <type_traits> // type-checking
+#include <memory> // for smart pointers
 #include "lit_cat_utils.h"
 #include "authors.h"
+using std::shared_ptr;
 
 class AuthorList
 {
@@ -45,7 +46,8 @@ public:
   void add_author(const Author& author);
   void remove_author_at(const size_t index_to_remove);
   void remove_author();
-  const Author& get_author_at(const size_t index_to_get) const;
+  shared_ptr<const Author> get_author_at(const size_t index_to_get) const;
+  shared_ptr<const Author> get_author() const;
 
   // Print Information
   void print_authors() const;

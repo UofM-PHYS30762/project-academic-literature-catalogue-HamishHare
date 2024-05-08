@@ -168,7 +168,7 @@ void AuthorList::remove_author()
   {
     // Prompt for an author to remove
     std::cout<<"Which author would you like to"
-            <<" remove from the list below?"<<std::endl;
+             <<" remove from the list below?"<<std::endl;
     print_authors_with_index();
     // Get the index of chosen author from user
     int chosen_index{get_index_from_user()};
@@ -182,13 +182,47 @@ void AuthorList::remove_author()
   }
 }
 // .. get an author from a given position in the list
-const Author& AuthorList::get_author_at(const size_t index_to_get) const
+shared_ptr<const Author> AuthorList::get_author_at(const size_t index_to_get) const
 {
-  if(!is_valid_index(index_to_get)) exit(2);
+  if(!is_valid_index(index_to_get))
+  {
+    std::cerr<<"Error: Invalid index, returning a nullptr."<<std::endl;
+    return nullptr;
+  }
 
   auto author_iter = authors.begin();
   std::advance(author_iter, index_to_get);
-  return *author_iter;
+  return std::make_shared<const Author>(*author_iter);
+}
+// .. get an author by prompting for an index first
+shared_ptr<const Author> AuthorList::get_author() const
+{
+  size_t list_size{authors.size()};
+  // End early if no authors in the list
+  if(list_size==0)
+  {
+    std::cout<<"Error: No authors to retrieve."<<std::endl;
+    return nullptr;
+  }
+  // If only one author, return it
+  else if(list_size==1) return get_author_at(0);
+  // If more than one author ask which to remove
+  else
+  {
+    // Prompt for an author to retrieve
+    std::cout<<"Which author would you like to"
+             <<" get from the list below?"<<std::endl;
+    print_authors_with_index();
+    // Get the index of chosen author from user
+    int chosen_index{get_index_from_user()};
+    if(chosen_index==-1) // no index given
+    {
+      std::cout<<"No authors retrieved, returning nullptr."<<std::endl;
+      return nullptr;
+    }
+    // Retrieve the chosen index
+    return get_author_at(static_cast<size_t>(chosen_index));
+  }
 }
 
 // Print Information
