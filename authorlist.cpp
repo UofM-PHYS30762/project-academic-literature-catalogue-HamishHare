@@ -100,7 +100,7 @@ int AuthorList::get_index_from_user() const
   size_t attempts{0};
   const size_t max_attempts{5};
   // Prompt for an input
-  std::cout<<"Enter an index from 0 to "<<list_size-1<<" (or -1 to exit):";
+  std::cout<<"Enter an index from 0 to "<<list_size-1<<" (or -1 to exit): ";
   // Repeat until a valid index or -1 (to quit) is entered,
   // .. or max_attempts attempts are made
   while(attempts<max_attempts)
@@ -109,7 +109,7 @@ int AuthorList::get_index_from_user() const
     if(!(std::cin>>index) || (index!=-1 && (index<0 || index>=list_size)) || std::cin.peek()!='\n')
     {
       std::cout<<"Invalid input. Please enter a valid index"
-               <<" from 0 to "<<list_size-1<<" (or -1 to exit):";
+               <<" from 0 to "<<list_size-1<<" (or -1 to exit): ";
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
