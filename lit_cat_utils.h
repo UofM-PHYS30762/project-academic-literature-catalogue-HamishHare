@@ -8,7 +8,7 @@ using std::string;
 
 namespace lit_cat_consts
 {
-  const bool show_messages{true};
+  const bool show_messages{false};
 }
 
 namespace lit_cat_utils

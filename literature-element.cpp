@@ -29,7 +29,7 @@ LiteratureElement::LiteratureElement(const literature_type _type,
 {
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised LiteratureElement constructor"<<std::endl;
   all_ids.insert(unique_id);
-  // TODO: Validation
+  // TODO: Validation (if needed)?
 }
 // .. Destructor
 LiteratureElement::~LiteratureElement()
@@ -99,6 +99,36 @@ LiteratureElement& LiteratureElement::operator=(LiteratureElement&& literature_t
   authors = std::move(literature_to_move.authors);
   
   return *this;
+}
+
+// Getters/Setters
+shared_ptr<const AuthorList> LiteratureElement::get_authors() const
+{
+  return std::make_shared<const AuthorList>(authors);
+}
+
+void LiteratureElement::set_title(const string& _title)
+{
+  // TODO: Validation (if needed)?
+  title = _title;
+}
+void LiteratureElement::set_authors(const AuthorList& _authors) // using an AuthorList
+{
+  authors = _authors;
+}
+void LiteratureElement::set_authors(const std::list<Author>& _authors) // using std::list
+{
+  authors = AuthorList(_authors);
+}
+// void LiteratureElement::set_authors(std::initializer_list<Author> author_list) // using arbitrary number of Authors
+// {
+//   authors = AuthorList(author_list);
+// }
+
+// Operator <, for use when adding elements to the catalogue
+bool LiteratureElement::operator<(const LiteratureElement& right_hand_element) const
+{
+  return unique_id < right_hand_element.unique_id;
 }
 
 // Function to get the string associated with a book type

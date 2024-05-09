@@ -11,10 +11,12 @@
 #include <set>
 #include <string>
 #include <iostream>
+#include <memory> // for smart pointers
 #include "lit_cat_utils.h"
 #include "authorlist.h"
 using std::set;
 using std::string;
+using std::shared_ptr;
 
 // An enumerator to relate types of literature to an
 // identfying int (rather than having to e.g. use a
@@ -57,6 +59,20 @@ public:
   LiteratureElement& operator=(LiteratureElement&& literature_to_move);
 
   // Getters/Setters
+  size_t get_unique_id() const {return unique_id;}
+  literature_type get_type() const {return type;}
+  string get_title() const {return title;}
+  shared_ptr<const AuthorList> get_authors() const;
+
+  void set_title(const string& _title);
+  void set_authors(const AuthorList& _authors); // using an AuthorList
+  void set_authors(const std::list<Author>& _authors); // using std::list
+  // void set_authors(std::initializer_list<Author> author_list); // using arbitrary number of Authors
+  void add_author(const Author& author){authors.add_author(author);}
+  void remove_author(){authors.remove_author();}
+
+  // Operator <, for use when adding elements to the catalogue
+  bool operator<(const LiteratureElement& right_hand_element) const;
 
   // Print Information
   void print_info();
