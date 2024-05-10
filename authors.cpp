@@ -34,10 +34,10 @@ namespace author_utils
   // Check if a provided string is a valid name format 
   bool is_valid_name(const std::string_view& name)
   {
-    constexpr size_t max_name_length = 40;
+    constexpr size_t max_name_length{40};
 
     // Check if the length of the name is not too long
-    if(name.length() > max_name_length)
+    if(name.length()>max_name_length)
     {
       std::cerr<<"Error: name too long (>"<<max_name_length<<" characters). Given name: '"<<name<<"'"<<std::endl;
       exit(1);
@@ -176,6 +176,6 @@ void Author::set_last_name(const string& _last_name)
 // Print Information
 void Author::print_name() const
 {
-  if(middle_names.empty()) std::cout<<first_name<<" "<<last_name<<std::endl;
-  else std::cout<<first_name<<" "<<middle_names<<" "<<last_name<<std::endl;
+  if(middle_names.empty()) std::cout<<first_name<<" "<<last_name;
+  else std::cout<<first_name<<" "<<middle_names<<" "<<last_name;
 }

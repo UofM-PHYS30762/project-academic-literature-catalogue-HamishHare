@@ -79,6 +79,7 @@ void AuthorList::print_authors_with_index() const
   for (const auto& author : authors) {
     std::cout<<index++<<": ";
     author.print_name();
+    std::cout<<std::endl;
   }
 }
 // Utility function for checking a given index is valid
@@ -233,14 +234,17 @@ void AuthorList::print_authors() const
   {
     // End early if more than 6 authors, with et al.
     count++;
-    if(count>6)
+    if(count>3)
     {
       std::cout<<"et al."<<std::endl;
       return;
     }
     // Print author name
     author->print_name();
+    // Place commas between all but last element
+    if(std::next(author)!=authors.end()) std::cout<<", ";
   }
+  std::cout<<std::endl;
 }
 
 // 
