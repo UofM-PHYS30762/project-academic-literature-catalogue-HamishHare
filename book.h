@@ -40,6 +40,11 @@ public:
   // .. Move assignment operator
   Book& operator=(Book&& book_to_move);
 
+  // Getters/Setters
+  string get_publisher() const {return publisher;}
+  string get_subject() const {return subject;}
+  float get_price() const {return price;}
+
   // Print information
   void print_info();
 };
