@@ -75,7 +75,7 @@ public:
   bool operator<(const LiteratureElement& right_hand_element) const;
 
   // Print Information
-  void print_info();
+  virtual void print_info() = 0;
 };
 
 #endif // LIT_ELEMENT_H
