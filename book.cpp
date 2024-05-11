@@ -9,58 +9,6 @@
 #include <limits> // for numeric_limits
 #include "book.h"
 
-namespace book_utils
-{
-  // Prompt for a new price
-  float prompt_for_price()
-  {
-    float new_price{0};
-    size_t attempts{0};
-    const size_t max_attempts{5};
-    // Prompt for an input
-    std::cout<<"Enter a price (or -1 to exit): ";
-    // Repeat until a valid price or -1 (to quit) is entered,
-    // .. or max_attempts attempts are made
-    while(attempts<max_attempts)
-    {
-      if(!(std::cin>>new_price) || (new_price!=-1 && new_price<0) || std::cin.peek()!='\n')
-      {
-        std::cout<<"Invalid input. Please enter a valid price"
-                <<" (or -1 to exit): ";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      }
-      else break;  // Valid price, exit the loop
-      attempts++;
-    }
-    if(attempts==max_attempts)
-    {
-      std::cout<<"\nMaximum attempts reached. Setting price to 0."<<std::endl;
-      new_price = 0;
-    }
-    return new_price;
-  }
-
-  // Validate the price
-  bool is_valid_price(const float& price_to_check)
-  {
-    // Check whether price_to_check is positive
-    if(price_to_check<0.0)
-    {
-      std::cerr<<"Error: price cannot be negative. Given price: "<<price_to_check<<std::endl;
-      return false;
-    }
-    // Check if the value is large, then prompt user to confirm
-    if(price_to_check>10000.0)
-    {
-      std::cout<<"You have entered a large price ("<<price_to_check
-               <<"), is this correct?"<<std::endl;
-      return lit_cat_utils::get_yes_no_from_user();
-    }
-    return true;
-  }
-}
-
 // Rule of 5
 // .. Default constructor
 Book::Book() : LiteratureElement(BOOK, string("Default Book"), AuthorList()),
@@ -76,10 +24,12 @@ Book::Book(const string& _title, const AuthorList& _authors,
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Book constructor"<<std::endl;
   publisher = _publisher; // Validation?
   subject = _subject; // Validation?
-  if(book_utils::is_valid_price(_price)) price = _price;
+  if(lit_cat_utils::is_valid_positive_float(_price, price_caution_value,
+                                            price_maximum_value, "price")) price = _price;
   else
   {
-    float new_price{book_utils::prompt_for_price()};
+    float new_price{lit_cat_utils::prompt_for_valid_positive_float(price_caution_value,
+                                                                   price_maximum_value, "price")};
     if(new_price==-1)
     {
       std::cout<<"Setting price to zero."<<std::endl;
@@ -148,10 +98,13 @@ void Book::set_subject(const string& _subject)
 }
 void Book::set_price(const float& _price)
 {
-  if(book_utils::is_valid_price(_price)) price = _price;
+  if(lit_cat_utils::is_valid_positive_float(_price, price_caution_value,
+                                            price_maximum_value, "price")) price = _price;
   else
   {
-    float new_price{book_utils::prompt_for_price()};
+    //float new_price{book_utils::prompt_for_price()};
+    float new_price{lit_cat_utils::prompt_for_valid_positive_float(price_caution_value,
+                                                                   price_maximum_value, "price")};
     if(new_price!=-1) price = new_price;
   }
 }

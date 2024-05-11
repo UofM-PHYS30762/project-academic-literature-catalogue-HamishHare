@@ -21,6 +21,8 @@ private:
   string publisher;
   string subject;
   float price;
+  const float price_caution_value{5000.0}; // Price over which to warn about
+  const float price_maximum_value{50000.0}; // Maximum allowed price
 public:
   // Rule of 5
   // .. Default constructor
