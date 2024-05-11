@@ -114,9 +114,8 @@ void Book::set_price(const float& _price)
 void Book::print_info()
 {
   LiteratureElement::print_info();
-  std::cout<<"PUBLISHER: "<<publisher<<std::endl;
-  std::cout<<"SUBJECT: "<<subject<<std::endl;
-  std::cout<<" PRICE: "<<std::fixed<<std::setprecision(2)
-                       <<price<<" GBP"<<std::endl;
-  std::cout<<"======="<<std::endl;
+  std::cout<<"   PUBLISHER: "<<publisher<<std::endl;
+  std::cout<<"     SUBJECT: "<<subject<<std::endl;
+  std::cout<<"       PRICE: "<<std::fixed<<std::setprecision(2)
+                             <<price<<" GBP"<<std::endl;
 }

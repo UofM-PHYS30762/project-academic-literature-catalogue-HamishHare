@@ -26,7 +26,7 @@ Journal::Journal(const string& _title, const AuthorList& _authors,
 {
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Journal constructor"<<std::endl;
   scope = _scope; // Validation?
-  
+
   // set validated impact factor
   if(lit_cat_utils::is_valid_positive_num<float>(_impact_factor,
                                                  impact_caution_value,
@@ -242,12 +242,11 @@ void Journal::print_scope() const
 void Journal::print_info()
 {
   LiteratureElement::print_info();
-  std::cout<<"IMPACT: "<<std::fixed<<std::setprecision(1)
-                       <<impact_factor<<std::endl;
-  std::cout<<"VOLUMES: "<<num_volumes<<std::endl;
-  std::cout<<"SCOPE: ";
+  std::cout<<"       SCOPE: ";
   print_scope();
+  std::cout<<"      IMPACT: "<<std::fixed<<std::setprecision(1)
+                             <<impact_factor<<std::endl;
+  std::cout<<" NUM VOLUMES: "<<num_volumes<<std::endl;
   std::cout<<"CONTRIBUTORS: "<<num_contributors<<std::endl;
-  std::cout<<"PAPERS: "<<num_papers<<std::endl;
-  std::cout<<"======="<<std::endl;
+  std::cout<<"  NUM PAPERS: "<<num_papers<<std::endl;
 }

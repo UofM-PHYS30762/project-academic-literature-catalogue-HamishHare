@@ -82,7 +82,6 @@ void Thesis::set_university(const string& _university)
 void Thesis::print_info()
 {
   LiteratureElement::print_info();
-  std::cout<<"SUPERVISOR: "<<supervisor<<std::endl;
-  std::cout<<"UNIVERSITY: "<<university<<std::endl;
-  std::cout<<"======="<<std::endl;
+  std::cout<<"  SUPERVISOR: "<<supervisor<<std::endl;
+  std::cout<<"  UNIVERSITY: "<<university<<std::endl;
 }

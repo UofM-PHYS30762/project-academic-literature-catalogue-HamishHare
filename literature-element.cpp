@@ -159,11 +159,12 @@ string LiteratureElement::get_type_string() const
 // Print Information
 void LiteratureElement::print_info()
 {
-  std::cout<<std::endl
-           <<"======="<<std::endl;
-  std::cout<<"    ID: "<<unique_id<<std::endl;
-  std::cout<<"  TYPE: "<<get_type_string()<<std::endl;
-  std::cout<<" TITLE: "<<title<<std::endl;
-  std::cout<<"AUTHOR: ";
+  std::cout<<"   ID: "<<unique_id<<" --- TYPE: "
+           <<get_type_string()<<std::endl;
+  std::cout<<"++---------------------------++"<<std::endl;
+  // std::cout<<"          ID: "<<unique_id<<std::endl;
+  // std::cout<<"        TYPE: "<<get_type_string()<<std::endl;
+  std::cout<<"       TITLE: "<<title<<std::endl;
+  std::cout<<"   AUTHOR(S): ";
   authors.print_authors();
 }

@@ -12,6 +12,7 @@
 #include "book.h"
 #include "thesis.h"
 #include "journal.h"
+#include "literature-catalogue.h"
 
 int main()
 {
@@ -21,18 +22,20 @@ int main()
   Author a3{"I am", "A new", "Name-okay"};
 
   // Test Book
+  Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  "Publishing Company", "Fiction", 13.99}; // fine
   // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
   //         "Publishing Company", "Fiction", 10000.546}; // large price
-  Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
-  "Publishing Company", "Fiction", -1.546}; // negative price
-  b0.print_info();
+  // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  // "Publishing Company", "Fiction", -1.546}; // negative price
+  // b0.print_info();
   // b0.set_price(-1);
   // b0.set_publisher("New Pub Co.");
   // b0.set_subject("New Subject");
   // b0.print_info();
 
   // Test Thesis
-  // Thesis t0{"Cancer Cure", AuthorList{a1}, "Super Visor", "Universe City"};
+  Thesis t0{"Cancer Cure", AuthorList{a1}, "Super Visor", "Universe City"};
   // t0.print_info();
   // t0.set_supervisor("S. Visor Jr");
   // t0.set_university("U. City Jr");
@@ -40,10 +43,10 @@ int main()
   
   // Test Journal
   Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
-             -30.2, -2, -120, -80,
+             30.2, 2, 120, 80,
              set<string>{"Astronomy", "Biophysics",
              "Chemisty", "Applied Nuclear"}};
-  j0.print_info();
+  // j0.print_info();
   // j0.remove_author();
   // j0.set_impact_factor(10000.0); // over max
   // j0.set_impact_factor(250.0); // caution
@@ -53,6 +56,33 @@ int main()
   // j0.set_num_volumes(1212);
   // j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
   // j0.print_info();
+
+  // Test Catalogue
+  // Catalogue c1;
+  // c1.print_catalogue();
+  // Catalogue c2{std::make_shared<Book>(b0),
+  //              std::make_shared<Thesis>(t0),
+  //              std::make_shared<Journal>(j0)};
+  // c2.print_catalogue();
+  set<lit_elem_ptr> leSet{std::make_shared<Thesis>(t0),
+                          std::make_shared<Book>(b0)};
+  Catalogue c3{leSet};
+  c3.print_catalogue();
+
+  // Catalogue c4{c3};
+  // c4.print_catalogue();
+  // Catalogue c5{std::move(c3)};
+  // c5.print_catalogue();
+  // c3.print_catalogue();
+
+  Catalogue c6;
+  c6 = c3;
+  c6.print_catalogue();
+  Catalogue c7;
+  c7 = std::move(c3);
+  c7.print_catalogue();
+  c3.print_catalogue();
+
 
   // Ro5:
   // Journal j1; // default constr.
