@@ -7,6 +7,37 @@
 
 #include "literature-catalogue.h"
 
+// Utility functions
+namespace catalogue_utils
+{
+  // Function to get a field type from the user
+  search_field get_field_from_user()
+  {
+    string input;
+    size_t attempts{0};
+    const size_t max_attempts{5};
+    
+    std::cout<<"Choose a field from 'author', 'title', or 'type' (or a/ti/ty): ";
+    while(attempts<max_attempts)
+    {
+      std::cin>>input;
+      lit_cat_utils::to_lowercase(input);// Convert the input to lowercase
+      
+      if (input=="author" || input=="a") return AUTHOR;
+      else if (input=="title" || input=="ti") return TITLE;
+      else if (input=="type" || input=="ty") return TYPE;
+      else
+      {
+        std::cout<<"Invalid input. Please enter 'author', 'title', or 'type' (or a/ti/ty): ";
+        attempts++;
+      }
+    }
+    
+    std::cout<<"\nMaximum attempts reached. No field selected."<<std::endl;
+    return NO_FIELD;
+  }
+}
+
 // Rule of 5
 // .. Default constructor
 Catalogue::Catalogue() : catalogue{}, num_entries{0}
@@ -79,6 +110,14 @@ void Catalogue::add_entry(const lit_elem_ptr& literature_element)
 {
   catalogue.insert(literature_element);
   num_entries++;
+}
+
+// Functionality
+// .. let the user search the catalogue
+void Catalogue::search()
+{
+  // Get the field to be searched
+  // Call the relevant search function
 }
 
 // Print Information

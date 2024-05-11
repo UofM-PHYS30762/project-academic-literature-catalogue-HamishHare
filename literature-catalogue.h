@@ -16,8 +16,25 @@
 #include "literature-element.h"
 using std::shared_ptr;
 
+// Utilities
+// .. define the data type used in the catalogue
 typedef shared_ptr<LiteratureElement> lit_elem_ptr;
+// .. an enumerator to relate search fields to an identfying int
+enum search_field
+{
+  NO_FIELD = 0,
+  AUTHOR = 1,
+  TITLE = 2,
+  TYPE = 3
+};
+// .. utility functions
+namespace catalogue_utils
+{
+  // Function to get a field type from the user
+  search_field get_field_from_user();
+}
 
+// Create the Catalogue class
 class Catalogue
 {
 private:
@@ -43,6 +60,10 @@ public:
 
   // Getters/Setters
   void add_entry(const lit_elem_ptr& literature_element);
+  size_t size() const {return num_entries;}
+
+  // Functionality
+  void search();
 
   // Print Information
   void print_catalogue();

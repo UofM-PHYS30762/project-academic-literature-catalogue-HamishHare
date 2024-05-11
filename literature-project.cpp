@@ -57,6 +57,8 @@ int main()
   // j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
   // j0.print_info();
 
+  std::cout<<catalogue_utils::get_field_from_user();
+
   // Test Catalogue
   // Catalogue c1;
   // c1.print_catalogue();
@@ -64,10 +66,10 @@ int main()
   //              std::make_shared<Thesis>(t0),
   //              std::make_shared<Journal>(j0)};
   // c2.print_catalogue();
-  set<lit_elem_ptr> leSet{std::make_shared<Thesis>(t0),
-                          std::make_shared<Book>(b0)};
-  Catalogue c3{leSet};
-  c3.print_catalogue();
+  // set<lit_elem_ptr> leSet{std::make_shared<Thesis>(t0),
+  //                         std::make_shared<Book>(b0)};
+  // Catalogue c3{leSet};
+  // c3.print_catalogue();
 
   // Catalogue c4{c3};
   // c4.print_catalogue();
@@ -75,13 +77,13 @@ int main()
   // c5.print_catalogue();
   // c3.print_catalogue();
 
-  Catalogue c6;
-  c6 = c3;
-  c6.print_catalogue();
-  Catalogue c7;
-  c7 = std::move(c3);
-  c7.print_catalogue();
-  c3.print_catalogue();
+  // Catalogue c6;
+  // c6 = c3;
+  // c6.print_catalogue();
+  // Catalogue c7;
+  // c7 = std::move(c3);
+  // c7.print_catalogue();
+  // c3.print_catalogue();
 
 
   // Ro5:
