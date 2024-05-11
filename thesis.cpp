@@ -68,6 +68,16 @@ Thesis& Thesis::operator=(Thesis&& thesis_to_move)
   return *this;
 }
 
+// Setters
+void Thesis::set_supervisor(const string& _supervisor)
+{
+  supervisor = _supervisor; // Validation?
+}
+void Thesis::set_university(const string& _university)
+{
+  university = _university; // Validation?
+}
+
 // Print Information
 void Thesis::print_info()
 {

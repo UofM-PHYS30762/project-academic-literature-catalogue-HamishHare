@@ -42,6 +42,9 @@ public:
   string get_supervisor() const {return supervisor;}
   string get_university() const {return university;}
 
+  void set_supervisor(const string& _supervisor);
+  void set_university(const string& _university);
+
   // Print information
   void print_info();
 };

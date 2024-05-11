@@ -23,13 +23,20 @@ int main()
   // Test Book
   // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
   //         "Publishing Company", "Fiction", 100000.546}; // large price
-  Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
-  "Publishing Company", "Fiction", -1.546}; // negative price
-  b0.print_info();
-  b0.set_price(-1);
-  b0.set_publisher("New Pub Co.");
-  b0.set_subject("New Subject");
-  b0.print_info();
+  // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  // "Publishing Company", "Fiction", -1.546}; // negative price
+  // b0.print_info();
+  // b0.set_price(-1);
+  // b0.set_publisher("New Pub Co.");
+  // b0.set_subject("New Subject");
+  // b0.print_info();
+
+  // Test Thesis
+  Thesis t0{"Cancer Cure", AuthorList{a1}, "Super Visor", "Universe City"};
+  t0.print_info();
+  t0.set_supervisor("S. Visor Jr");
+  t0.set_university("U. City Jr");
+  t0.print_info();
   
   // Testing Journal
   // Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
