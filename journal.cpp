@@ -25,11 +25,27 @@ Journal::Journal(const string& _title, const AuthorList& _authors,
                  LiteratureElement(JOURNAL, _title, _authors)
 {
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Journal constructor"<<std::endl;
-  impact_factor = _impact_factor; // Validation?
   num_volumes = _num_volumes; // Validation?
   num_contributors = _num_contributors; // Validation?
   num_papers = _num_papers; // Validation?
   scope = _scope; // Validation?
+  // Impact factor
+  if(lit_cat_utils::is_valid_positive_num<float>(_impact_factor,
+                                                 impact_caution_value,
+                                                 impact_maximum_value,
+                                                 "impact factor")) impact_factor = _impact_factor;
+  else
+  {
+    float new_impact_factor{lit_cat_utils::prompt_for_valid_positive_num<float>(impact_caution_value,
+                                                                                impact_maximum_value,
+                                                                                "impact factor")};
+    if(new_impact_factor==-1)
+    {
+      std::cout<<"Setting impact factor to zero."<<std::endl;
+      impact_factor = 0;
+    }
+    else impact_factor = new_impact_factor;
+  }
 }
 // .. Copy constructor
 Journal::Journal(const Journal& journal_to_copy) :
@@ -93,15 +109,15 @@ Journal& Journal::operator=(Journal&& journal_to_move)
 // Setters
 void Journal::set_impact_factor(const float& _impact_factor)
 {
-  if(lit_cat_utils::is_valid_positive_float(_impact_factor,
-                                            impact_caution_value,
-                                            impact_maximum_value,
-                                            "impact factor")) impact_factor = _impact_factor;
+  if(lit_cat_utils::is_valid_positive_num<float>(_impact_factor,
+                                                 impact_caution_value,
+                                                 impact_maximum_value,
+                                                 "impact factor")) impact_factor = _impact_factor;
   else
   {
-    float new_impact_factor{lit_cat_utils::prompt_for_valid_positive_float(impact_caution_value,
-                                                                           impact_maximum_value,
-                                                                           "impact factor")};
+    float new_impact_factor{lit_cat_utils::prompt_for_valid_positive_num<float>(impact_caution_value,
+                                                                                impact_maximum_value,
+                                                                                "impact factor")};
     if(new_impact_factor!=-1) impact_factor = new_impact_factor;
   }
 }

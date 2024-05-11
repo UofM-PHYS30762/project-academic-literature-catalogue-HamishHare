@@ -1,4 +1,3 @@
-#include <limits> // for numeric_limits
 #include "lit_cat_utils.h"
 
 namespace lit_cat_utils
@@ -101,4 +100,38 @@ namespace lit_cat_utils
     }
     return new_float;
   }
+
+  // // Function to prompt the user for a valid positive float
+  // size_t prompt_for_valid_size_t(const float& caution_limit,
+  //                               const float& max_limit,
+  //                               const std::string_view& prompt_field)
+  // {
+  //   int new_value;
+  //   size_t attempts{0};
+  //   const size_t max_attempts{5};
+  //   // Prompt for an input
+  //   std::cout<<"Enter a "<<prompt_field<<" (or -1 to exit): ";
+  //   // Repeat until a valid value or -1 (to quit) is entered,
+  //   // .. or max_attempts attempts are made
+  //   while(attempts<max_attempts)
+  //   {
+  //     if(!(std::cin>>new_value)
+  //        || (new_value!=-1 && (new_value<0 || new_value>=list_size))
+  //        || std::cin.peek()!='\n')
+  //     {
+  //       std::cout<<"Please enter a valid positive "<<prompt_field
+  //               <<" (or -1 to exit): ";
+  //       std::cin.clear();
+  //       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  //     }
+  //     else break; // Valid, exit the loop
+  //     attempts++;
+  //   }
+  //   if(attempts==max_attempts)
+  //   {
+  //     std::cout<<"\nMaximum attempts reached. "<<std::endl;
+  //     new_value = -1;
+  //   }
+  //   return new_value;
+  // }
 }

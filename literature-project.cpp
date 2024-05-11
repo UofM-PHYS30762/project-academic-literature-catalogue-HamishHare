@@ -40,18 +40,18 @@ int main()
   
   // Test Journal
   Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
-             30.2, 2, 120, 80,
+             -30.2, 2, 120, 80,
              set<string>{"Astronomy", "Biophysics",
              "Chemisty", "Applied Nuclear"}};
   j0.print_info();
   // j0.remove_author();
-  // j0.set_impact_factor(10000.0); // over max
-  // j0.set_impact_factor(250.0); // caution
-  // j0.set_impact_factor(12); // fine
-  j0.set_num_contributors(34);
-  j0.set_num_papers(20);
-  j0.set_num_volumes(1212);
-  j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
+  j0.set_impact_factor(10000.0); // over max
+  j0.set_impact_factor(250.0); // caution
+  j0.set_impact_factor(-12); // negative
+  // j0.set_num_contributors(34);
+  // j0.set_num_papers(20);
+  // j0.set_num_volumes(1212);
+  // j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
   j0.print_info();
 
   // Ro5:

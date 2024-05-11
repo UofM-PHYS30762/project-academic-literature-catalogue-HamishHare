@@ -24,12 +24,13 @@ Book::Book(const string& _title, const AuthorList& _authors,
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Book constructor"<<std::endl;
   publisher = _publisher; // Validation?
   subject = _subject; // Validation?
-  if(lit_cat_utils::is_valid_positive_float(_price, price_caution_value,
-                                            price_maximum_value, "price")) price = _price;
+  if(lit_cat_utils::is_valid_positive_num<float>(_price, price_caution_value,
+                                                 price_maximum_value, "price")) price = _price;
   else
   {
-    float new_price{lit_cat_utils::prompt_for_valid_positive_float(price_caution_value,
-                                                                   price_maximum_value, "price")};
+    float new_price{lit_cat_utils::prompt_for_valid_positive_num<float>(price_caution_value,
+                                                                        price_maximum_value,
+                                                                        "price")};
     if(new_price==-1)
     {
       std::cout<<"Setting price to zero."<<std::endl;
@@ -102,8 +103,9 @@ void Book::set_price(const float& _price)
                                             price_maximum_value, "price")) price = _price;
   else
   {
-    float new_price{lit_cat_utils::prompt_for_valid_positive_float(price_caution_value,
-                                                                   price_maximum_value, "price")};
+    float new_price{lit_cat_utils::prompt_for_valid_positive_num<float>(price_caution_value,
+                                                                        price_maximum_value,
+                                                                        "price")};
     if(new_price!=-1) price = new_price;
   }
 }
