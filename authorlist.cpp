@@ -106,7 +106,6 @@ int AuthorList::get_index_from_user() const
   // .. or max_attempts attempts are made
   while(attempts<max_attempts)
   {
-    //if(!(std::cin>>index) || index<-1 || index>=list_size || std::cin.peek()!='\n')
     if(!(std::cin>>index) || (index!=-1 && (index<0 || index>=list_size)) || std::cin.peek()!='\n')
     {
       std::cout<<"Invalid input. Please enter a valid index"

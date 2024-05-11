@@ -19,6 +19,17 @@ int main()
   Author a1{"Rock", "And", "Roll"};
   Author a2{"Stock", "and a", "Poll"};
   Author a3{"I am", "A new", "Name-okay"};
+
+  // Test Book
+  // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  //         "Publishing Company", "Fiction", 100000.546}; // large price
+  Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  "Publishing Company", "Fiction", -1.546}; // negative price
+  b0.print_info();
+  b0.set_price(-1);
+  b0.set_publisher("New Pub Co.");
+  b0.set_subject("New Subject");
+  b0.print_info();
   
   // Testing Journal
   // Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
@@ -31,24 +42,24 @@ int main()
   // Ro5:
   // Journal j1; // default constr.
   // j1.print_info();
-  Journal j2{"Food Studies", AuthorList{a1, a3},
-             1.21212, 4, 1000, 567,
-             set<string>{"Pancakes", "Sandwiches",
-             "Eggs", "Fruits"}}; // param constr.
-  j2.print_info();
+  // Journal j2{"Food Studies", AuthorList{a1, a3},
+  //            1.21212, 4, 1000, 567,
+  //            set<string>{"Pancakes", "Sandwiches",
+  //            "Eggs", "Fruits"}}; // param constr.
+  // j2.print_info();
   // Journal j3{j2}; // copy constr.
   // j3.print_info();
   // Journal j4{std::move(j2)}; // move constr.
   // j4.print_info();
   // j2.print_info();
-  Journal j5; // copy =
-  j5.print_info();
-  j5 = j2;
-  j5.print_info();
-  Journal j6; // move =
-  j6 = std::move(j2);
-  j6.print_info();
-  j2.print_info();
+  // Journal j5; // copy =
+  // j5.print_info();
+  // j5 = j2;
+  // j5.print_info();
+  // Journal j6; // move =
+  // j6 = std::move(j2);
+  // j6.print_info();
+  // j2.print_info();
 
   return 0;
 }

@@ -45,6 +45,10 @@ public:
   string get_subject() const {return subject;}
   float get_price() const {return price;}
 
+  void set_publisher(const string& _publisher);
+  void set_subject(const string& _subject);
+  void set_price(const float& _price);
+
   // Print information
   void print_info();
 };
