@@ -232,7 +232,7 @@ void AuthorList::print_authors() const
   int count{0};
   for(auto author{authors.begin()}; author!=authors.end(); ++author)
   {
-    // End early if more than 6 authors, with et al.
+    // End early if more than 3 authors, with et al.
     count++;
     if(count>3)
     {

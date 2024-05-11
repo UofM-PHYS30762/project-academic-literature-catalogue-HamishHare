@@ -96,6 +96,6 @@ void Book::print_info()
   std::cout<<"PUBLISHER: "<<publisher<<std::endl;
   std::cout<<"SUBJECT: "<<subject<<std::endl;
   std::cout<<" PRICE: "<<std::fixed<<std::setprecision(2)
-                      <<price<<" GBP"<<std::endl;
+                       <<price<<" GBP"<<std::endl;
   std::cout<<"======="<<std::endl;
 }

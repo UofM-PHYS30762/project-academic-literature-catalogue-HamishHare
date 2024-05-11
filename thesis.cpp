@@ -61,7 +61,7 @@ Thesis& Thesis::operator=(Thesis&& thesis_to_move)
   // Move the data members
   // .. of the base class
   LiteratureElement::operator=(std::move(thesis_to_move));
-  // .. of the book only
+  // .. of the thesis only
   supervisor = std::move(thesis_to_move.supervisor);
   university = std::move(thesis_to_move.university);
   
