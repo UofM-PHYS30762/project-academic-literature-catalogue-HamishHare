@@ -21,15 +21,15 @@ int main()
   Author a3{"I am", "A new", "Name-okay"};
 
   // Test Book
-  Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
-          "Publishing Company", "Fiction", 10000.546}; // large price
+  // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
+  //         "Publishing Company", "Fiction", 10000.546}; // large price
   // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
   // "Publishing Company", "Fiction", -1.546}; // negative price
-  b0.print_info();
-  b0.set_price(-1);
-  b0.set_publisher("New Pub Co.");
-  b0.set_subject("New Subject");
-  b0.print_info();
+  // b0.print_info();
+  // b0.set_price(-1);
+  // b0.set_publisher("New Pub Co.");
+  // b0.set_subject("New Subject");
+  // b0.print_info();
 
   // Test Thesis
   // Thesis t0{"Cancer Cure", AuthorList{a1}, "Super Visor", "Universe City"};
@@ -38,13 +38,21 @@ int main()
   // t0.set_university("U. City Jr");
   // t0.print_info();
   
-  // Testing Journal
-  // Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
-  //            30.2, 2, 120, 80,
-  //            set<string>{"Astronomy", "Biophysics",
-  //            "Chemisty", "Applied Nuclear"}};
-  // j0.print_info();
+  // Test Journal
+  Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
+             30.2, 2, 120, 80,
+             set<string>{"Astronomy", "Biophysics",
+             "Chemisty", "Applied Nuclear"}};
+  j0.print_info();
   // j0.remove_author();
+  // j0.set_impact_factor(10000.0); // over max
+  // j0.set_impact_factor(250.0); // caution
+  // j0.set_impact_factor(12); // fine
+  j0.set_num_contributors(34);
+  j0.set_num_papers(20);
+  j0.set_num_volumes(1212);
+  j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
+  j0.print_info();
 
   // Ro5:
   // Journal j1; // default constr.

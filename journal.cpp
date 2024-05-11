@@ -90,6 +90,38 @@ Journal& Journal::operator=(Journal&& journal_to_move)
   return *this;
 }
 
+// Setters
+void Journal::set_impact_factor(const float& _impact_factor)
+{
+  if(lit_cat_utils::is_valid_positive_float(_impact_factor,
+                                            impact_caution_value,
+                                            impact_maximum_value,
+                                            "impact factor")) impact_factor = _impact_factor;
+  else
+  {
+    float new_impact_factor{lit_cat_utils::prompt_for_valid_positive_float(impact_caution_value,
+                                                                           impact_maximum_value,
+                                                                           "impact factor")};
+    if(new_impact_factor!=-1) impact_factor = new_impact_factor;
+  }
+}
+void Journal::set_num_volumes(const size_t& _num_volumes)
+{
+  num_volumes = _num_volumes; // Validation?
+}
+void Journal::set_num_contributors(const size_t& _num_contributors)
+{
+  num_contributors = _num_contributors; // Validation?
+}
+void Journal::set_num_papers(const size_t& _num_papers)
+{
+  num_papers = _num_papers; // Validation?
+}
+void Journal::set_scope(const set<string>& _scope)
+{
+  scope = _scope; // Validation?
+}
+
 // Function to print each element of the scope
 void Journal::print_scope() const
 {

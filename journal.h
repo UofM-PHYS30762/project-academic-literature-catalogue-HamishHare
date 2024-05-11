@@ -25,6 +25,8 @@ private:
   size_t num_contributors;
   size_t num_papers;
   set<string> scope;
+  const float impact_caution_value{200.0}; // Impact factor over which to warn about
+  const float impact_maximum_value{1000.0}; // Maximum allowed impact factor
   void print_scope() const; // Utility function
 public:
   // Rule of 5
@@ -49,9 +51,15 @@ public:
   // Getters/Setters
   float get_impact_factor() const {return impact_factor;}
   size_t get_num_volumes() const {return num_volumes;}
-  set<string> get_scope() const {return scope;}
   size_t get_num_contributors() const {return num_contributors;}
   size_t get_num_papers() const {return num_papers;}
+  set<string> get_scope() const {return scope;}
+
+  void set_impact_factor(const float& _impact_factor);
+  void set_num_volumes(const size_t& _num_volumes);
+  void set_num_contributors(const size_t& _num_contributors);
+  void set_num_papers(const size_t& _num_papers);
+  void set_scope(const set<string>& _scope);
 
   // Print information
   void print_info();
