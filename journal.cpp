@@ -19,17 +19,15 @@ Journal::Journal() : LiteratureElement(JOURNAL, string("Default Journal"), Autho
 }
 // .. Parameterised constructor
 Journal::Journal(const string& _title, const AuthorList& _authors,
-                 const float& _impact_factor, const size_t& _num_volumes,
-                 const size_t& _num_contributors, const size_t& _num_papers,
+                 const float& _impact_factor, const int& _num_volumes,
+                 const int& _num_contributors, const int& _num_papers,
                  const set<string>& _scope) :
                  LiteratureElement(JOURNAL, _title, _authors)
 {
   if(lit_cat_consts::show_messages) std::cout<<"Calling parameterised Journal constructor"<<std::endl;
-  num_volumes = _num_volumes; // Validation?
-  num_contributors = _num_contributors; // Validation?
-  num_papers = _num_papers; // Validation?
   scope = _scope; // Validation?
-  // Impact factor
+  
+  // set validated impact factor
   if(lit_cat_utils::is_valid_positive_num<float>(_impact_factor,
                                                  impact_caution_value,
                                                  impact_maximum_value,
@@ -45,6 +43,57 @@ Journal::Journal(const string& _title, const AuthorList& _authors,
       impact_factor = 0;
     }
     else impact_factor = new_impact_factor;
+  }
+  // set validated num_volumes
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_volumes,
+                                               volumes_caution_value,
+                                               volumes_maximum_value,
+                                               "number of volumes")) num_volumes = _num_volumes;
+  else
+  {
+    int new_num_volumes{lit_cat_utils::prompt_for_valid_positive_num<int>(volumes_caution_value,
+                                                                          volumes_maximum_value,
+                                                                          "number of volumes")};
+    if(new_num_volumes==-1)
+    {
+      std::cout<<"Setting number of volumes to zero."<<std::endl;
+      num_volumes = 0;
+    }
+    else num_volumes = new_num_volumes;
+  }
+  // set validated num_contributors
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_contributors,
+                                               contributors_caution_value,
+                                               contributors_maximum_value,
+                                               "number of contributors")) num_contributors = _num_contributors;
+  else
+  {
+    int new_num_contributors{lit_cat_utils::prompt_for_valid_positive_num<int>(contributors_caution_value,
+                                                                               contributors_maximum_value,
+                                                                               "number of contributors")};
+    if(new_num_contributors==-1)
+    {
+      std::cout<<"Setting number of contributors to zero."<<std::endl;
+      num_contributors = 0;
+    }
+    else num_contributors = new_num_contributors;
+  }
+  // set validated num_papers
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_papers,
+                                               papers_caution_value,
+                                               papers_maximum_value,
+                                               "number of papers")) num_papers = _num_papers;
+  else
+  {
+    int new_num_papers{lit_cat_utils::prompt_for_valid_positive_num<int>(papers_caution_value,
+                                                                         papers_maximum_value,
+                                                                         "number of papers")};
+    if(new_num_papers==-1)
+    {
+      std::cout<<"Setting number of papers to zero."<<std::endl;
+      num_papers = 0;
+    }
+    else num_papers = new_num_papers;
   }
 }
 // .. Copy constructor
@@ -121,17 +170,47 @@ void Journal::set_impact_factor(const float& _impact_factor)
     if(new_impact_factor!=-1) impact_factor = new_impact_factor;
   }
 }
-void Journal::set_num_volumes(const size_t& _num_volumes)
+void Journal::set_num_volumes(const int& _num_volumes)
 {
-  num_volumes = _num_volumes; // Validation?
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_volumes,
+                                               volumes_caution_value,
+                                               volumes_maximum_value,
+                                               "number of volumes")) num_volumes = _num_volumes;
+  else
+  {
+    int new_num_volumes{lit_cat_utils::prompt_for_valid_positive_num<int>(volumes_caution_value,
+                                                                          volumes_maximum_value,
+                                                                          "number of volumes")};
+    if(new_num_volumes!=-1) num_volumes = new_num_volumes;
+  }
 }
-void Journal::set_num_contributors(const size_t& _num_contributors)
+void Journal::set_num_contributors(const int& _num_contributors)
 {
-  num_contributors = _num_contributors; // Validation?
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_contributors,
+                                               contributors_caution_value,
+                                               contributors_maximum_value,
+                                               "number of contributors")) num_contributors = _num_contributors;
+  else
+  {
+    int new_num_contributors{lit_cat_utils::prompt_for_valid_positive_num<int>(contributors_caution_value,
+                                                                               contributors_maximum_value,
+                                                                               "number of contributors")};
+    if(new_num_contributors!=-1) num_contributors = new_num_contributors;
+  }
 }
-void Journal::set_num_papers(const size_t& _num_papers)
+void Journal::set_num_papers(const int& _num_papers)
 {
-  num_papers = _num_papers; // Validation?
+  if(lit_cat_utils::is_valid_positive_num<int>(_num_papers,
+                                               papers_caution_value,
+                                               papers_maximum_value,
+                                               "number of papers")) num_papers = _num_papers;
+  else
+  {
+    int new_num_papers{lit_cat_utils::prompt_for_valid_positive_num<int>(papers_caution_value,
+                                                                         papers_maximum_value,
+                                                                         "number of papers")};
+    if(new_num_papers!=-1) num_papers = new_num_papers;
+  }
 }
 void Journal::set_scope(const set<string>& _scope)
 {
