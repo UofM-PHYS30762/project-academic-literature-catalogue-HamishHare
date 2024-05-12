@@ -358,10 +358,6 @@ void Catalogue::edit_entry()
     std::cout<<"No elements to available to edit."<<std::endl;
     return;
   }
-  // Output a summary of each entry in the catalogue
-  std::cout<<"Would you prefer full details of all entries rather than a summary?"
-           <<std::endl;
-  (lit_cat_utils::get_yes_no_from_user()) ? print_catalogue() : print_summary();
   // Get an element to edit:
   int chosen_id = catalogue_utils::get_id_from_user("edit");
   if(chosen_id==-1)

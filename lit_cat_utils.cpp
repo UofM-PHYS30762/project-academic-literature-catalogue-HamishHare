@@ -41,12 +41,13 @@ namespace lit_cat_utils
     string input;
     size_t attempts{0};
     const size_t max_attempts{5};
-    std::cout<<"Please enter a "<<prompt<<": ";
+    std::cout<<"Please enter a "<<prompt<<" (or -1 to leave blank): ";
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while(attempts<max_attempts)
     {
       std::getline(std::cin, input);
+      if(input=="-1") return string{}; // quit
       if(!input.empty())
       {
         std::cout<<"Is this the correct "<<prompt<<"?: '"<<input<<"'"<<std::endl;

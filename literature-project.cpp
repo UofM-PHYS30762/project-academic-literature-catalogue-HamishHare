@@ -89,17 +89,102 @@ Catalogue prepare_sample_catalogue()
   return c1;
 }
 
+enum main_option
+{
+  VIEW_FULL = 0,
+  VIEW_SUMMARY = 1,
+  SEARCH = 2,
+  ADD = 3,
+  EDIT = 4,
+  REMOVE = 5,
+  QUIT = 6
+};
+
+namespace main_utils
+{
+  // Function to present the user with all their browsing options
+  main_option get_browsing_choice_from_user()
+  {
+    string input;
+    size_t attempts{0};
+    const size_t max_attempts{5};
+    
+    std::cout<<"Would you like to (0) view full, (1) view summary, (2) search,"
+             <<" (3) add, (4) edit, (5) remove, or (6) quit?: ";
+    while(attempts<max_attempts)
+    {
+      std::cin>>input;
+      
+      if(input=="0") return VIEW_FULL;
+      else if(input=="1") return VIEW_SUMMARY;
+      else if(input=="2") return SEARCH;
+      else if(input=="3") return ADD;
+      else if(input=="4") return EDIT;
+      else if(input=="5") return REMOVE;
+      else if(input=="6") return QUIT;
+      else
+      {
+        std::cout<<"Invalid input. Please enter a number 0-6: ";
+        attempts++;
+      }
+    }
+    
+    std::cout<<"\nMaximum attempts reached. Defaulting to quit."<<std::endl;
+    return QUIT;
+  }
+}
+
 int main()
 {
-  Catalogue cat{prepare_sample_catalogue()};
-  cat.print_catalogue();
+  Catalogue catalogue{prepare_sample_catalogue()};
+
+  bool still_browsing{true};
+  main_option option{VIEW_FULL};
+  std::cout<<"Your options are to:"<<std::endl
+           <<"(0) view the full catalogue"<<std::endl
+           <<"(1) view a summary of the catalogue"<<std::endl
+           <<"(2) search the catalogue"<<std::endl
+           <<"(3) add to the catalogue"<<std::endl
+           <<"(4) edit an existing element"<<std::endl
+           <<"(5) remove an element"<<std::endl
+           <<"or (6) quit."<<std::endl;
+  while(still_browsing)
+  {
+    // Take an action
+    option = main_utils::get_browsing_choice_from_user();
+    switch(option)
+    {
+    case VIEW_FULL:
+      catalogue.print_catalogue();
+      break;
+    case VIEW_SUMMARY:
+      catalogue.print_summary();
+      break;
+    case SEARCH:
+      catalogue.search();
+      break;
+    case ADD:
+      catalogue.add_entry();
+      break;
+    case EDIT:
+      catalogue.edit_entry();
+      break;
+    case REMOVE:
+      catalogue.remove_entry();
+      break;
+    default: // QUIT
+      still_browsing = false;
+      break;
+    }
+  }
 
   // Get the current working directory
   // std::filesystem::path current_dir = std::filesystem::current_path();
   // std::filesystem::path file_path = current_dir / "sample_catalogue.txt";
   // cat.save_catalogue(file_path);
-  cat.edit_entry();
-  cat.print_catalogue();
+  // cat.edit_entry();
+  // cat.search();
+  // cat.print_catalogue();
   
   
   // Trial Authors

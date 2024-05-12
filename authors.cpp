@@ -34,7 +34,7 @@ namespace author_utils
   // Check if a provided string is a valid name format 
   bool is_valid_name(const std::string_view& name)
   {
-    constexpr size_t max_name_length{40};
+    const size_t max_name_length{40};
 
     // Check if the length of the name is not too long
     if(name.length()>max_name_length)
