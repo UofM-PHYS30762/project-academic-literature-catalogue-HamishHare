@@ -74,7 +74,12 @@ int main()
   // Catalogue c3{leSet};
   // c3.print_catalogue();
 
-  c2.search();
+  // c2.search();
+  c2.remove_entry();
+  c2.remove_entry();
+  c2.remove_entry();
+  c2.remove_entry();
+  c2.print_catalogue();
 
   // Catalogue c4{c3};
   // c4.print_catalogue();

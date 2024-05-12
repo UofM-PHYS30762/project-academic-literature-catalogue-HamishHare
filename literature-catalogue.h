@@ -42,6 +42,8 @@ namespace catalogue_utils
   string get_query_from_user();
   // Function to get a literature type from the user
   literature_type get_literature_type_from_user();
+  // Function to get an ID number from the user
+  int get_id_from_user();
 }
 
 // Create the Catalogue class
@@ -54,6 +56,7 @@ private:
   void search_title();
   void search_type();
   void print_catalogue(std::function<bool(const lit_elem_ptr&)> filter); // Private implementation
+  void remove_entry_at(const size_t id_to_remove); // Private implementation
 public:
   // Rule of 5
   // .. Default constructor
@@ -74,6 +77,8 @@ public:
 
   // Getters/Setters
   void add_entry(const lit_elem_ptr& literature_element);
+  // void add_entry(); // Public interface
+  void remove_entry(); // Public interface
   size_t size() const {return num_entries;}
 
   // Functionality
@@ -81,6 +86,7 @@ public:
 
   // Print Information
   void print_catalogue(); // Public interface, calls private one but prints everything
+  void print_summary(); // Less detailed summary
 };
 
 #endif // LIT_CATALOGUE_H

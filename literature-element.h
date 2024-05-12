@@ -32,8 +32,6 @@ enum literature_type
 // Abstract base class for a piece of literature
 class LiteratureElement
 {
-private:
-  string get_type_string() const; // Utility function
 protected:
   static set<size_t> all_ids;
   const size_t unique_id;
@@ -61,6 +59,7 @@ public:
   // Getters/Setters
   size_t get_unique_id() const {return unique_id;}
   literature_type get_type() const {return type;}
+  string get_type_string() const; // Utility function
   string get_title() const {return title;}
   shared_ptr<const AuthorList> get_authors() const;
 

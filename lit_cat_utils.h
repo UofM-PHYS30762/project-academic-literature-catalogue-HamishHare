@@ -80,7 +80,7 @@ namespace lit_cat_utils
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
-      else break; // Valid float, exit the loop
+      else break; // Valid number, exit the loop
       attempts++;
     }
     if(attempts==max_attempts)

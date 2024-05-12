@@ -118,6 +118,38 @@ namespace catalogue_utils
     std::cout<<"\nMaximum attempts reached. No type selected."<<std::endl;
     return NONE;
   }
+  // Function to get an ID number from the user
+  // .. needs to be an int to allow negative numbers (-1),
+  // .. but should be casted to size_t once -1 handled when used
+  int get_id_from_user()
+  {
+    int new_value{0};
+    size_t attempts{0};
+    const size_t max_attempts{5};
+    // Prompt for an input
+    std::cout<<"Enter the ID number to remove (or -1 to exit): ";
+    // Repeat until a valid number or -1 (to quit) is entered,
+    // .. or max_attempts attempts are made
+    while(attempts<max_attempts)
+    {
+      if(!(std::cin>>new_value)
+         || (new_value!=-1 && new_value<0) // || (new_value!=-1 && !is_valid_id()))
+         || std::cin.peek()!='\n')
+      {
+        std::cout<<"Please enter a valid positive ID (or -1 to exit): ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+      else break; // Valid, exit the loop
+      attempts++;
+    }
+    if(attempts==max_attempts)
+    {
+      std::cout<<"\nMaximum attempts reached."<<std::endl;
+      new_value = -1;
+    }
+    return new_value;
+  }
 }
 
 // Rule of 5
@@ -187,11 +219,69 @@ Catalogue& Catalogue::operator=(Catalogue&& catalogue_to_move)
 }
 
 // Getters/Setters
-// .. add an author to the back of the list
+// .. add an entry to the set given a complete object
 void Catalogue::add_entry(const lit_elem_ptr& literature_element)
 {
   catalogue.insert(literature_element);
   num_entries++;
+}
+//  .. add an entry after prompting
+// void Catalogue::add_entry()
+// {
+//   // Get the type of element to add
+// }
+
+// .. remove an entry at a given index
+void Catalogue::remove_entry_at(const size_t id_to_remove)
+{
+  // Search for the given id
+  auto entry_iter = std::find_if(catalogue.begin(), catalogue.end(),
+                                 [&id_to_remove](const lit_elem_ptr& entry)
+                                 {return entry->get_unique_id()==id_to_remove;});
+  // Remove it if found, after prompting the user
+  if(entry_iter==catalogue.end()) // not found
+  {
+    std::cout<<"Provided ID ("<<id_to_remove<<") not found in the catalogue."<<std::endl;
+  }
+  else // found
+  {
+    // confirm if user wants to remove found element
+    std::cout<<"Are you sure you want to remove ("
+             <<(*entry_iter)->get_type_string()<<") '"
+             <<(*entry_iter)->get_title()<<"' with ID "
+             <<(*entry_iter)->get_unique_id()<<"?"<<std::endl;
+    if(lit_cat_utils::get_yes_no_from_user())
+    {
+      catalogue.erase(entry_iter); // remove it
+      num_entries--; // update the number of entries
+    }
+    else std::cout<<"No entries removed."<<std::endl;
+  }
+}
+// .. remove an entry after prompting
+void Catalogue::remove_entry()
+{
+  // Ouput a summary of each entry in the catalogue
+  print_summary();
+  // Exit early if no elements
+  if(num_entries==0)
+  {
+    std::cout<<"No elements to remove."<<std::endl;
+    return;
+  }
+  // Get an element to remove:
+  int chosen_id = catalogue_utils::get_id_from_user();
+  if(chosen_id==-1)
+  {
+    std::cout<<"No entries removed."<<std::endl;
+    return;
+  }
+  else
+  {
+    size_t id_to_remove{static_cast<size_t>(chosen_id)};
+    remove_entry_at(id_to_remove);
+  }
+
 }
 
 // Functionality
@@ -322,4 +412,26 @@ void Catalogue::print_catalogue(std::function<bool(const lit_elem_ptr&)> filter)
 void Catalogue::print_catalogue()
 {
   print_catalogue([](const lit_elem_ptr& entry){return true;});
+}
+
+// .. print a brief summary of each entry
+void Catalogue::print_summary()
+{
+  std::cout<<std::endl;
+  std::cout<<"++===========================++"<<std::endl;
+  std::cout<<"||     CATALOGUE SUMMARY     ||"<<std::endl;
+  std::cout<<"++===========================++"<<std::endl;
+  // End early if no entries in the catalogue
+  if(num_entries==0)
+  {
+    std::cout<<"   Catalogue is empty"<<std::endl;
+    std::cout<<"++---------------------------++"<<std::endl;
+    return;
+  }
+  for(const auto& entry : catalogue)
+  {
+    std::cout<<"ID "<<entry->get_unique_id()<<": ("
+             <<entry->get_type_string()<<") "<<entry->get_title()<<std::endl;
+  }
+  std::cout<<"++---------------------------++"<<std::endl;
 }
