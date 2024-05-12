@@ -225,6 +225,41 @@ shared_ptr<const Author> AuthorList::get_author() const
   }
 }
 
+// Search Function
+bool AuthorList::search_authors(const author_name_fields& field, const std::string_view& query)
+{
+  bool found{false};
+  // Loop through each author in the list
+  for(auto& author : authors)
+  {
+    // Construct the name to be searched
+    string name;
+    switch(field)
+    {
+      case FIRST_NAME:
+        name = author.get_first_name();
+        break;
+      case MIDDLE_NAMES:
+        name = author.get_middle_names();
+        break;
+      case LAST_NAME:
+        name = author.get_last_name();
+        break;
+      case ALL_NAMES:
+        name = author.get_first_name() + " " +
+               author.get_middle_names() + " " +
+               author.get_last_name();
+      default:
+        break;
+    }
+    // Search for the query in the name
+    lit_cat_utils::to_lowercase(name);
+    found = (name.find(query) != string::npos);
+    if(found) break;
+  }
+  return found;
+}
+
 // Print Information
 void AuthorList::print_authors() const
 {
@@ -245,5 +280,3 @@ void AuthorList::print_authors() const
   }
   std::cout<<std::endl;
 }
-
-// 

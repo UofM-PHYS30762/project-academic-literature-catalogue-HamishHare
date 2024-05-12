@@ -135,7 +135,7 @@ bool LiteratureElement::operator<(const LiteratureElement& right_hand_element) c
 string LiteratureElement::get_type_string() const
 {
   string return_string;
-  switch (type)
+  switch(type)
   {
     case NONE:
       return_string = "None";

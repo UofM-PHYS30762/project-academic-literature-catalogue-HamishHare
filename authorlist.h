@@ -9,6 +9,7 @@
 #define AUTHORLIST_H
 
 #include <string>
+#include <string_view>
 #include <iostream>
 #include <list>
 #include <initializer_list>
@@ -17,6 +18,17 @@
 #include "authors.h"
 using std::shared_ptr;
 
+// An enumerator to relate name fields to an identfying int
+enum author_name_fields
+{
+  NO_NAME_FIELD = 0,
+  FIRST_NAME = 1,
+  MIDDLE_NAMES = 2,
+  LAST_NAME = 3,
+  ALL_NAMES = 4
+};
+
+// The AuthorList class, a wrapper for a list of Authors
 class AuthorList
 {
 private:
@@ -48,6 +60,9 @@ public:
   void remove_author();
   shared_ptr<const Author> get_author_at(const size_t index_to_get) const;
   shared_ptr<const Author> get_author() const;
+
+  // Search Function
+  bool search_authors(const author_name_fields& field, const std::string_view& query);
 
   // Print Information
   void print_authors() const;

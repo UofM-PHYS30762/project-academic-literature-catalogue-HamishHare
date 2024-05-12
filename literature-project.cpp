@@ -57,7 +57,27 @@ int main()
   // j0.set_scope(set<string>{"XXXX", "RRRRR", "EEEEE"});
   // j0.print_info();
 
-  std::cout<<catalogue_utils::get_field_from_user();
+  AuthorList al1{a1, a2, a3};
+  al1.print_authors();
+  std::cout<<al1.search_authors(FIRST_NAME, "Rock")<<std::endl;
+  std::cout<<al1.search_authors(FIRST_NAME, "trick")<<std::endl;
+  std::cout<<al1.search_authors(FIRST_NAME, "rock")<<std::endl;
+  std::cout<<al1.search_authors(FIRST_NAME, "stock")<<std::endl;
+  std::cout<<al1.search_authors(FIRST_NAME, "i am")<<std::endl;
+  std::cout<<"====="<<std::endl;
+  std::cout<<al1.search_authors(MIDDLE_NAMES, "and")<<std::endl;
+  std::cout<<al1.search_authors(MIDDLE_NAMES, "new")<<std::endl;
+  std::cout<<al1.search_authors(MIDDLE_NAMES, "not")<<std::endl;
+  std::cout<<"====="<<std::endl;
+  std::cout<<al1.search_authors(LAST_NAME, "roll")<<std::endl;
+  std::cout<<al1.search_authors(LAST_NAME, "poll")<<std::endl;
+  std::cout<<al1.search_authors(LAST_NAME, "okay")<<std::endl;
+  std::cout<<al1.search_authors(LAST_NAME, "hidden")<<std::endl;
+  std::cout<<"====="<<std::endl;
+  std::cout<<al1.search_authors(ALL_NAMES, "d roll")<<std::endl;
+  std::cout<<al1.search_authors(ALL_NAMES, "ck and")<<std::endl;
+  std::cout<<al1.search_authors(ALL_NAMES, "am")<<std::endl;
+  std::cout<<al1.search_authors(ALL_NAMES, "hidden")<<std::endl;
 
   // Test Catalogue
   // Catalogue c1;
