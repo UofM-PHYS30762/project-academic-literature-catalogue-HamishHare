@@ -13,9 +13,12 @@
 #include <iostream>
 #include <initializer_list>
 #include <limits> // numeric_limits
+#include <functional> // to pass in functions as args
+#include <string>
 #include "lit_cat_utils.h"
 #include "literature-element.h"
 using std::shared_ptr;
+using std::string;
 
 // Utilities
 // .. define the data type used in the catalogue
@@ -37,6 +40,8 @@ namespace catalogue_utils
   author_name_fields get_author_name_field_from_user();
   // Function to get a query string from the user
   string get_query_from_user();
+  // Function to get a literature type from the user
+  literature_type get_literature_type_from_user();
 }
 
 // Create the Catalogue class
@@ -46,8 +51,9 @@ private:
   set<lit_elem_ptr> catalogue;
   size_t num_entries;
   void search_author();
-  // void search_title();
-  // void search_type();
+  void search_title();
+  void search_type();
+  void print_catalogue(std::function<bool(const lit_elem_ptr&)> filter); // Private implementation
 public:
   // Rule of 5
   // .. Default constructor
@@ -74,7 +80,7 @@ public:
   void search();
 
   // Print Information
-  void print_catalogue();
+  void print_catalogue(); // Public interface, calls private one but prints everything
 };
 
 #endif // LIT_CATALOGUE_H

@@ -47,7 +47,7 @@ namespace catalogue_utils
     while(attempts<max_attempts)
     {
       std::cin>>input;
-      lit_cat_utils::to_lowercase(input);// Convert the input to lowercase
+      lit_cat_utils::to_lowercase(input); // Convert the input to lowercase
       
       if(input=="first" || input=="f") return FIRST_NAME;
       else if(input=="middle" || input=="m") return MIDDLE_NAMES;
@@ -91,6 +91,32 @@ namespace catalogue_utils
     }
     std::cout<<"\nMaximum attempts reached. Full search used."<<std::endl;
     return "";
+  }
+  // Function to get a literature type from the user
+  literature_type get_literature_type_from_user()
+  {
+    string input;
+    size_t attempts{0};
+    const size_t max_attempts{5};
+    
+    std::cout<<"Choose a type from 'book', 'thesis', or 'journal' (or b/t/j): ";
+    while(attempts<max_attempts)
+    {
+      std::cin>>input;
+      lit_cat_utils::to_lowercase(input); // Convert the input to lowercase
+      
+      if(input=="book" || input=="b") return BOOK;
+      else if(input=="thesis" || input=="t") return THESIS;
+      else if(input=="journal" || input=="j") return JOURNAL;
+      else
+      {
+        std::cout<<"Invalid input. Please enter 'book', 'thesis', or 'journal' (or b/t/j): ";
+        attempts++;
+      }
+    }
+    
+    std::cout<<"\nMaximum attempts reached. No type selected."<<std::endl;
+    return NONE;
   }
 }
 
@@ -181,10 +207,10 @@ void Catalogue::search()
       search_author();
       break;
     case TITLE:
-      // search_title();
+      search_title();
       break;
     case TYPE:
-      // search_type();
+      search_type();
       break;
     default:
       break;
@@ -206,7 +232,65 @@ void Catalogue::search_author()
   if(name_field==NO_NAME_FIELD) return;
   // Get the search query from the user
   string query{catalogue_utils::get_query_from_user()};
-  // Perform the search
+  // Define a lambda function to filter entries
+  auto filter = [&](const lit_elem_ptr& entry)
+                {return entry->get_authors()->search_authors(name_field, query);};
+                    
+  // Output the results of the search
+  print_catalogue(filter);
+}
+// .. search by title
+void Catalogue::search_title()
+{
+  // End early if no entries
+  if(num_entries==0)
+  {
+    std::cout<<"No entries to search."<<std::endl;
+    return;
+  }
+  // Otherwise...
+  // Get the search query from the user
+  std::cout<<"Searching by title. ";
+  string query{catalogue_utils::get_query_from_user()};
+  // Define a lambda function to filter entries
+  auto filter = [&](const lit_elem_ptr& entry)
+                {
+                  string title{entry->get_title()};
+                  lit_cat_utils::to_lowercase(title);
+                  return title.find(query) != string::npos;
+                };
+                    
+  // Output the results of the search
+  print_catalogue(filter);
+}
+// .. search by title
+void Catalogue::search_type()
+{
+  // End early if no entries
+  if(num_entries==0)
+  {
+    std::cout<<"No entries to search."<<std::endl;
+    return;
+  }
+  // Otherwise...
+  // Get the search query from the user
+  std::cout<<"Searching by type. ";
+  literature_type type_query{catalogue_utils::get_literature_type_from_user()};
+  // Define a lambda function to filter entries
+  auto filter = [&](const lit_elem_ptr& entry)
+                {
+                  if(type_query==NONE) return true;
+                  else return entry->get_type()==type_query;
+                };
+                    
+  // Output the results of the search
+  print_catalogue(filter);
+}
+
+// Print Information
+// .. private implementation: accepts a conditional filter
+void Catalogue::print_catalogue(std::function<bool(const lit_elem_ptr&)> filter)
+{ 
   size_t count{0};
   std::cout<<std::endl;
   std::cout<<"++===========================++"<<std::endl;
@@ -220,12 +304,12 @@ void Catalogue::search_author()
     return;
   }
   // Print the information from each entry in the catalogue
-  for(auto entry{catalogue.begin()}; entry!=catalogue.end(); ++entry)
+  for(const auto& entry : catalogue)
   {
-    // Print details of the entry if it meets condition
-    if((*entry)->get_authors()->search_authors(name_field, query))
+    // Only print the details of an entry if it meets the given condition
+    if(filter(entry))
     {
-      (*entry)->print_info();
+      entry->print_info();
       std::cout<<"++---------------------------++"<<std::endl;
       count++;
     }
@@ -234,27 +318,8 @@ void Catalogue::search_author()
   std::cout<<"++---------------------------++"<<std::endl;
 }
 
-// Print Information
+// .. public implementation: uses a conditional filter to print everything
 void Catalogue::print_catalogue()
 {
-  std::cout<<std::endl;
-  std::cout<<"++===========================++"<<std::endl;
-  std::cout<<"||     CATALOGUE DETAILS     ||"<<std::endl;
-  std::cout<<"++===========================++"<<std::endl;
-  // End early if no entries in the catalogue
-  if(num_entries==0)
-  {
-    std::cout<<"   Catalogue is empty"<<std::endl;
-    std::cout<<"++---------------------------++"<<std::endl;
-    return;
-  }
-  // Print the information from each entry in the catalogue
-  for(auto entry{catalogue.begin()}; entry!=catalogue.end(); ++entry)
-  {
-    // Print details of the entry
-    (*entry)->print_info();
-    std::cout<<"++---------------------------++"<<std::endl;
-  }
-  std::cout<<"   Showing "<<num_entries<<"/"<<num_entries<<" entries"<<std::endl;
-  std::cout<<"++---------------------------++"<<std::endl;
+  print_catalogue([](const lit_elem_ptr& entry){return true;});
 }
