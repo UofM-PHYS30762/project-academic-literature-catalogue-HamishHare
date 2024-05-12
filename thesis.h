@@ -45,6 +45,8 @@ public:
   void set_supervisor(const string& _supervisor);
   void set_university(const string& _university);
 
+  bool create_thesis(); // User interface for setting elements
+
   // Print information
   void print_info();
 };

@@ -78,6 +78,31 @@ void Thesis::set_university(const string& _university)
   university = _university; // Validation?
 }
 
+// User interface for Thesis creation
+bool Thesis::create_thesis()
+{
+  std::cout<<"Enter the parameters for a Thesis:"<<std::endl;
+  // Set the title and authors using base class function
+  if(!LiteratureElement::create_literature_element()) return false;
+  // Set the supervisor and university
+  string _supervisor{lit_cat_utils::get_string_from_user("supervisor")};
+  if(_supervisor.empty())
+  {
+    std::cout<<"Supervisor incomplete, could not make Thesis"<<std::endl;
+    return false;
+  }
+  else supervisor = _supervisor;
+
+  string _university{lit_cat_utils::get_string_from_user("university")};
+  if(_university.empty())
+  {
+    std::cout<<"University incomplete, could not make Thesis"<<std::endl;
+    return false;
+  }
+  else university = _university;
+  return true;
+}
+
 // Print Information
 void Thesis::print_info()
 {

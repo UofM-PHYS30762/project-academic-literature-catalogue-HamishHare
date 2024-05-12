@@ -238,6 +238,7 @@ void Catalogue::add_entry()
     return;
   }
   // Call the relevant creation function otherwise
+  // .. book
   if(type==BOOK)
   {
     Book book_to_add;
@@ -248,7 +249,27 @@ void Catalogue::add_entry()
     }
     else return;
   }
-
+  // .. thesis
+  else if(type==THESIS)
+  {
+    Thesis thesis_to_add;
+    if(thesis_to_add.create_thesis())
+    {
+      std::cout<<"Successfully added a Thesis."<<std::endl;
+      add_entry(std::make_shared<Thesis>(thesis_to_add));
+    }
+    else return;
+  }
+  // else if(type==JOURNAL)
+  // {
+  //   Jounal journal_to_add;
+  //   if(journal_to_add.create_thesis())
+  //   {
+  //     std::cout<<"Successfully added a Jounal."<<std::endl;
+  //     add_entry(std::make_shared<Jounal>(journal_to_add));
+  //   }
+  //   else return;
+  // }
 }
 
 // .. remove an entry at a given index
