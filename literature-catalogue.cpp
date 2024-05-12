@@ -5,7 +5,7 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Hamish Hare
 
-#include "literature-catalogue-TEMP.h"
+#include "literature-catalogue.h"
 
 // Utility functions
 namespace catalogue_utils
@@ -121,13 +121,13 @@ namespace catalogue_utils
   // Function to get an ID number from the user
   // .. needs to be an int to allow negative numbers (-1),
   // .. but should be casted to size_t once -1 handled when used
-  int get_id_from_user()
+  int get_id_from_user(const string_view& prompt)
   {
     int new_value{0};
     size_t attempts{0};
     const size_t max_attempts{5};
     // Prompt for an input
-    std::cout<<"Enter the ID number to remove (or -1 to exit): ";
+    std::cout<<"Enter the ID number to "<<prompt<<" (or -1 to exit): ";
     // Repeat until a valid number or -1 (to quit) is entered,
     // .. or max_attempts attempts are made
     while(attempts<max_attempts)
@@ -224,7 +224,6 @@ void Catalogue::add_entry(const lit_elem_ptr& literature_element)
 {
   catalogue.insert(literature_element);
   num_entries++;
-  print_catalogue();
 }
 // .. add an entry after prompting
 void Catalogue::add_entry()
@@ -311,7 +310,7 @@ void Catalogue::remove_entry()
     return;
   }
   // Get an element to remove:
-  int chosen_id = catalogue_utils::get_id_from_user();
+  int chosen_id = catalogue_utils::get_id_from_user("remove");
   if(chosen_id==-1)
   {
     std::cout<<"No entries removed."<<std::endl;
@@ -322,7 +321,59 @@ void Catalogue::remove_entry()
     size_t id_to_remove{static_cast<size_t>(chosen_id)};
     remove_entry_at(id_to_remove);
   }
+}
 
+// .. edit an entry at a given index
+void Catalogue::edit_entry_at(const size_t id_to_edit)
+{
+  // Search for the given id
+  auto entry_iter = std::find_if(catalogue.begin(), catalogue.end(),
+                                 [&id_to_edit](const lit_elem_ptr& entry)
+                                 {return entry->get_unique_id()==id_to_edit;});
+  // Edit it if found, after prompting the user
+  if(entry_iter==catalogue.end()) // not found
+  {
+    std::cout<<"Provided ID ("<<id_to_edit<<") not found in the catalogue."<<std::endl;
+  }
+  else // found
+  {
+    // confirm if user wants to edit found element
+    std::cout<<"Are you sure you want to edit ("
+             <<(*entry_iter)->get_type_string()<<") '"
+             <<(*entry_iter)->get_title()<<"' with ID "
+             <<(*entry_iter)->get_unique_id()<<"?"<<std::endl;
+    if(lit_cat_utils::get_yes_no_from_user())
+    {
+      (*entry_iter)->edit(); // edit it
+    }
+    else std::cout<<"Editting aborted."<<std::endl;
+  }
+}
+// .. edit an entry after prompting
+void Catalogue::edit_entry()
+{
+  // Exit early if no elements
+  if(num_entries==0)
+  {
+    std::cout<<"No elements to available to edit."<<std::endl;
+    return;
+  }
+  // Output a summary of each entry in the catalogue
+  std::cout<<"Would you prefer full details of all entries rather than a summary?"
+           <<std::endl;
+  (lit_cat_utils::get_yes_no_from_user()) ? print_catalogue() : print_summary();
+  // Get an element to edit:
+  int chosen_id = catalogue_utils::get_id_from_user("edit");
+  if(chosen_id==-1)
+  {
+    std::cout<<"Editting aborted."<<std::endl;
+    return;
+  }
+  else
+  {
+    size_t id_to_edit{static_cast<size_t>(chosen_id)};
+    edit_entry_at(id_to_edit);
+  }
 }
 
 // Functionality

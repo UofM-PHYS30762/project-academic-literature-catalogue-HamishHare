@@ -51,6 +51,7 @@ public:
   void set_subject(const string& _subject);
   void set_price(const float& _price);
 
+  void edit(); // User interface for editting elements
   bool create_book(); // User interface for setting elements
 
   // Saving

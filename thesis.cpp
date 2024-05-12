@@ -78,6 +78,33 @@ void Thesis::set_university(const string& _university)
   university = _university; // Validation?
 }
 
+// User interface for editting Thesis
+void Thesis::edit()
+{
+  // Edit the supervisor
+  std::cout<<"Would you like to edit the supervisor?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _supervisor{lit_cat_utils::get_string_from_user("supervisor")};
+    if(_supervisor.empty())
+    {
+      std::cout<<"Aborting supervisor edit."<<std::endl;
+    }
+    supervisor = _supervisor;
+  }
+  // Edit the university
+  std::cout<<"Would you like to edit the university?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _university{lit_cat_utils::get_string_from_user("university")};
+    if(_university.empty())
+    {
+      std::cout<<"Aborting university edit."<<std::endl;
+    }
+    university = _university;
+  }
+}
+
 // User interface for Thesis creation
 bool Thesis::create_thesis()
 {

@@ -221,6 +221,83 @@ void Journal::set_scope(const set<string>& _scope)
 // const int& _num_contributors, const int& _num_papers,
 // const set<string>& _scope
 
+// User interface for editting Journal 
+void Journal::edit()
+{
+  // Edit the impact_factor
+  std::cout<<"Would you like to edit the impact factor?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    float _impact_factor{lit_cat_utils::prompt_for_valid_positive_num<float>(impact_caution_value,
+                                                                           impact_maximum_value,
+                                                                           "impact factor")};
+    if(_impact_factor==-1)
+    {
+      std::cout<<"Aborting impact factor edit."<<std::endl;
+    }
+    else impact_factor = _impact_factor;
+  }
+  // Edit the num volumes
+  std::cout<<"Would you like to edit the number of volumes?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    int _num_volumes{lit_cat_utils::prompt_for_valid_positive_num<int>(volumes_caution_value,
+                                                                       volumes_maximum_value,
+                                                                      "number of volumes")};
+    if(_num_volumes==-1)
+    {
+      std::cout<<"Aborting number of volumes edit."<<std::endl;
+    }
+    else num_volumes = _num_volumes;
+  }
+  // Edit the num contributors
+  std::cout<<"Would you like to edit the number of contributors?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    int _num_contributors{lit_cat_utils::prompt_for_valid_positive_num<int>(contributors_caution_value,
+                                                                            contributors_maximum_value,
+                                                                            "number of contributors")};
+    if(_num_contributors==-1)
+    {
+      std::cout<<"Aborting number of contributors edit."<<std::endl;
+    }
+    else num_contributors = _num_contributors;
+  }
+  // Edit the num papers
+  std::cout<<"Would you like to edit the number of papers?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    int _num_papers{lit_cat_utils::prompt_for_valid_positive_num<int>(papers_caution_value,
+                                                                      papers_maximum_value,
+                                                                      "number of papers")};
+    if(_num_papers==-1)
+    {
+      std::cout<<"Aborting number of papers edit."<<std::endl;
+    }
+    else num_papers = _num_papers;
+  }
+  // Edit the scope
+  std::cout<<"Would you like to edit the scope?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    int num_areas{lit_cat_utils::prompt_for_valid_positive_num<int>(10, 40, "number of disciplines")};
+    if(num_areas==-1 || num_areas==0)
+    {
+      std::cout<<"Aborting scope edit."<<std::endl;
+    }
+    // .. create discipline strings until num_areas reached
+    for(int i{0}; i<num_areas; i++)
+    {
+      string area{lit_cat_utils::get_string_from_user("discipline")};
+      if(area.empty())
+      {
+        std::cout<<"Aborting scope edit."<<std::endl;
+      }
+      else scope.insert(area);
+    }
+  }
+}
+
 // User interface for Journal creation
 bool Journal::create_journal()
 {

@@ -58,6 +58,8 @@ public:
   void add_author(const Author& author);
   void remove_author_at(const size_t index_to_remove);
   void remove_author();
+  void edit_author_at(const size_t index_to_edit);
+  void edit(); // User interface for editting
   shared_ptr<const Author> get_author_at(const size_t index_to_get) const;
   shared_ptr<const Author> get_author() const;
   size_t size(){return authors.size();}

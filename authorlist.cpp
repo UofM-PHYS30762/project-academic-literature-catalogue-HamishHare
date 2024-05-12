@@ -225,6 +225,50 @@ shared_ptr<const Author> AuthorList::get_author() const
   }
 }
 
+// Edit Function
+// .. edit an author from a given position in the list
+void AuthorList::edit_author_at(const size_t index_to_edit)
+{
+  if(!is_valid_index(index_to_edit)) return;
+
+  auto author_iter = authors.begin();
+  std::advance(author_iter, index_to_edit);
+  author_iter->edit();
+}
+// .. edit an author by prompting for an index first
+void AuthorList::edit()
+{
+  size_t list_size{authors.size()};
+  // End early if no authors in the list
+  if(list_size==0)
+  {
+    std::cout<<"No authors to edit."<<std::endl;
+    return;
+  }
+  // If only one author, edit it
+  else if(list_size==1)
+  {
+    authors.begin()->edit();
+  }
+  // If more than one author ask which to edit
+  else
+  {
+    // Prompt for an author to edit
+    std::cout<<"Which author would you like to"
+             <<" edit from the list below?"<<std::endl;
+    print_authors_with_index();
+    // Get the index of chosen author from user
+    int chosen_index{get_index_from_user()};
+    if(chosen_index==-1) // no index given
+    {
+      std::cout<<"Editting aborted."<<std::endl;
+      return;
+    }
+    // Remove the chosen index
+    edit_author_at(static_cast<size_t>(chosen_index));
+  }
+}
+
 // Search Function
 bool AuthorList::search_authors(const author_name_fields& field,
                                 const std::string_view& query) const

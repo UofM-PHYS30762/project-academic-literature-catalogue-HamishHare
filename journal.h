@@ -69,6 +69,7 @@ public:
   void set_num_papers(const int& _num_papers);
   void set_scope(const set<string>& _scope);
 
+  void edit(); // User interface for editting elements
   bool create_journal(); // User interface for setting elements
 
   // Saving

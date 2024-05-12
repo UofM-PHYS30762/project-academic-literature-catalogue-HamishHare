@@ -125,6 +125,31 @@ void LiteratureElement::set_authors(const std::list<Author>& _authors) // using 
 //   authors = AuthorList(author_list);
 // }
 
+ // User interface for LiteratureElement editting
+void LiteratureElement::edit()
+{
+  // Ask if they want to edit the title
+  std::cout<<"Would you like to edit the title?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    // Set the title
+    string _title{lit_cat_utils::get_string_from_user("title")};
+    if(_title.empty())
+    {
+      std::cout<<"Title incomplete, editting aborted."<<std::endl;
+      return;
+    }
+    else title = _title;
+  }
+  // Ask if they want to edit the authors
+  std::cout<<"Would you like to edit the authors?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    // Call author editting
+    authors.edit();
+  }
+}
+
 // User interface for LiteratureElement creation
 bool LiteratureElement::create_literature_element()
 {

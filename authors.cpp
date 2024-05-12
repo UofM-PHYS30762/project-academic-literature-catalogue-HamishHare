@@ -173,6 +173,43 @@ void Author::set_last_name(const string& _last_name)
   author_utils::format_name(last_name);
 }
 
+// User interface for Author editting
+void Author::edit()
+{
+  // Set first name
+  std::cout<<"Would you like to edit the first name?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _first_name{lit_cat_utils::get_string_from_user("first name")};
+    if(_first_name.empty())
+    {
+      std::cout<<"Warning: first name empty."<<std::endl;
+    }
+    first_name = _first_name;
+    author_utils::format_name(first_name);
+  }
+  // Set any middle names
+  std::cout<<"Would you like to edit the middle names?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _middle_names{lit_cat_utils::get_string_from_user("middle names")};
+    middle_names = _middle_names;
+    author_utils::format_name(middle_names);
+  }
+  // Set last name
+  std::cout<<"Would you like to edit the last name?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _last_name{lit_cat_utils::get_string_from_user("last name")};
+    if(_last_name.empty())
+    {
+      std::cout<<"Warning: last name empty."<<std::endl;
+    }
+    last_name = _last_name;
+    author_utils::format_name(last_name);
+  }
+}
+
 // User interface for Author creation
 void Author::create_author()
 {

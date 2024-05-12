@@ -109,6 +109,47 @@ void Book::set_price(const float& _price)
     if(new_price!=-1) price = new_price;
   }
 }
+// User interface for editting the Book
+void Book::edit()
+{
+  // Edit the title and authors with the base class
+  LiteratureElement::edit();
+  // Edit the publisher
+  std::cout<<"Would you like to edit the publisher?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _publisher{lit_cat_utils::get_string_from_user("publisher")};
+    if(_publisher.empty())
+    {
+      std::cout<<"Aborting publisher edit."<<std::endl;
+    }
+    publisher = _publisher;
+  }
+  // Edit the subject
+  std::cout<<"Would you like to edit the subject?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    string _subject{lit_cat_utils::get_string_from_user("subject")};
+    if(_subject.empty())
+    {
+      std::cout<<"Aborting subject edit."<<std::endl;
+    }
+    subject = _subject;
+  }
+  // Edit the price
+  std::cout<<"Would you like to edit the price?"<<std::endl;
+  if(lit_cat_utils::get_yes_no_from_user())
+  {
+    float _price{lit_cat_utils::prompt_for_valid_positive_num<float>(price_caution_value,
+                                                                     price_maximum_value,
+                                                                     "price")};
+    if(_price==-1)
+    {
+      std::cout<<"Aborting price edit"<<std::endl;
+    }
+    else price = _price;
+  }
+}
 
 // User interface for Book creation
 bool Book::create_book()
