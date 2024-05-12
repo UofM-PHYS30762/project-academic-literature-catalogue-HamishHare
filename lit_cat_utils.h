@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <string_view> // efficient string viewing when no editting
 using std::string;
+using std::string_view;
 
 namespace lit_cat_consts
 {
@@ -19,6 +20,10 @@ namespace lit_cat_utils
   void to_lowercase(string& input_string);
   // Function to get a yes or no from the user
   bool get_yes_no_from_user();
+  // Function to get a string from the user
+  string get_string_from_user(const string_view& prompt);
+  // Function to get a float from the user
+  string get_float_from_user(const string_view& prompt);
   
   // TEMPLATE FUNCTIONS:
   // These must have their implementation in the header file.
@@ -28,7 +33,7 @@ namespace lit_cat_utils
   template <class T> bool is_valid_positive_num(const T& num_to_check,
                                                 const T& caution_limit, // value above which to seek confirmation
                                                 const T& max_limit, // maximum allowed value
-                                                const std::string_view& prompt_field)
+                                                const string_view& prompt_field)
   {
     // Check whether num_to_check is positive
     if(num_to_check<0.0)
@@ -59,7 +64,7 @@ namespace lit_cat_utils
   // .. the type must be able to hold negative numbers
   template <class T> T prompt_for_valid_positive_num(const T& caution_limit, // value above which to seek confirmation
                                                      const T& max_limit, // maximum allowed value
-                                                     const std::string_view& prompt_field)
+                                                     const string_view& prompt_field)
   {
     T new_value{0};
     size_t attempts{0};

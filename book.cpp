@@ -110,6 +110,41 @@ void Book::set_price(const float& _price)
   }
 }
 
+// User interface for Book creation
+bool Book::create_book()
+{
+  std::cout<<"Enter the parameters for a Book:"<<std::endl;
+  // Set the title and authors using base class function
+  if(!LiteratureElement::create_literature_element()) return false;
+  // Set the publisher and subject
+  string _publisher{lit_cat_utils::get_string_from_user("publisher")};
+  if(_publisher.empty())
+  {
+    std::cout<<"Publisher incomplete, could not make Book"<<std::endl;
+    return false;
+  }
+  else publisher = _publisher;
+
+  string _subject{lit_cat_utils::get_string_from_user("subject")};
+  if(_subject.empty())
+  {
+    std::cout<<"Subject incomplete, could not make Book"<<std::endl;
+    return false;
+  }
+  else subject = _subject;
+  // Set the price
+  float _price{lit_cat_utils::prompt_for_valid_positive_num<float>(price_caution_value,
+                                                                   price_maximum_value,
+                                                                   "price")};
+  if(_price==-1)
+  {
+    std::cout<<"Price incomplete, could not make Book"<<std::endl;
+    return false;
+  }
+  else price = _price;
+  return true;
+}
+
 // Print Information
 void Book::print_info()
 {

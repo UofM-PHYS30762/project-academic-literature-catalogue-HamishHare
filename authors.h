@@ -48,6 +48,8 @@ public:
   void set_middle_names(const string& _middle_names);
   void set_last_name(const string& _last_name);
 
+  void create_author(); // User interface for setting elements
+
   // Print Information
   void print_name() const;
 };

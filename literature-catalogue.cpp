@@ -224,12 +224,32 @@ void Catalogue::add_entry(const lit_elem_ptr& literature_element)
 {
   catalogue.insert(literature_element);
   num_entries++;
+  print_catalogue();
 }
-//  .. add an entry after prompting
-// void Catalogue::add_entry()
-// {
-//   // Get the type of element to add
-// }
+// .. add an entry after prompting
+void Catalogue::add_entry()
+{
+  // Get the type of LiteratureElement to add
+  literature_type type{catalogue_utils::get_literature_type_from_user()};
+  // Exit if no valid type given
+  if(type==NONE)
+  {
+    std::cout<<"No element added."<<std::endl;
+    return;
+  }
+  // Call the relevant creation function otherwise
+  if(type==BOOK)
+  {
+    Book book_to_add;
+    if(book_to_add.create_book())
+    {
+      std::cout<<"Successfully added a Book."<<std::endl;
+      add_entry(std::make_shared<Book>(book_to_add));
+    }
+    else return;
+  }
+
+}
 
 // .. remove an entry at a given index
 void Catalogue::remove_entry_at(const size_t id_to_remove)

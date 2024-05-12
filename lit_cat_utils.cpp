@@ -34,4 +34,30 @@ namespace lit_cat_utils
     std::cout<<"\nMaximum attempts reached. Defaulting to 'no'."<<std::endl;
     return false;
   }
+
+  // Function to get a string from the user
+  string get_string_from_user(const string_view& prompt)
+  {
+    string input;
+    size_t attempts{0};
+    const size_t max_attempts{5};
+    std::cout<<"Please enter a "<<prompt<<": ";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while(attempts<max_attempts)
+    {
+      std::getline(std::cin, input);
+      if(!input.empty())
+      {
+        std::cout<<"Is this the correct "<<prompt<<"?: '"<<input<<"'"<<std::endl;
+        if(lit_cat_utils::get_yes_no_from_user()) return input;
+      }
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout<<"Please re-enter a "<<prompt<<": ";
+      attempts++;
+    }
+    std::cout<<"\nMaximum attempts reached."<<std::endl;
+    return string{};
+  }
 }

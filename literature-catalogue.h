@@ -17,6 +17,7 @@
 #include <string>
 #include "lit_cat_utils.h"
 #include "literature-element.h"
+#include "book.h"
 using std::shared_ptr;
 using std::string;
 
@@ -55,7 +56,8 @@ private:
   void search_author();
   void search_title();
   void search_type();
-  void print_catalogue(std::function<bool(const lit_elem_ptr&)> filter); // Private implementation
+  void print_catalogue(std::function<bool(const lit_elem_ptr&)> filter); // Private 
+  void add_entry(const lit_elem_ptr& literature_element); // Private implementation
   void remove_entry_at(const size_t id_to_remove); // Private implementation
 public:
   // Rule of 5
@@ -76,8 +78,7 @@ public:
   Catalogue& operator=(Catalogue&& catalogue_to_move);
 
   // Getters/Setters
-  void add_entry(const lit_elem_ptr& literature_element);
-  // void add_entry(); // Public interface
+  void add_entry(); // Public interface
   void remove_entry(); // Public interface
   size_t size() const {return num_entries;}
 

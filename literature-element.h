@@ -70,6 +70,8 @@ public:
   void add_author(const Author& author){authors.add_author(author);}
   void remove_author(){authors.remove_author();}
 
+  bool create_literature_element(); // User interface for setting elements
+
   // Operator <, for use when adding elements to the catalogue
   bool operator<(const LiteratureElement& right_hand_element) const;
 

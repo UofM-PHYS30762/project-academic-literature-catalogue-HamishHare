@@ -125,6 +125,34 @@ void LiteratureElement::set_authors(const std::list<Author>& _authors) // using 
 //   authors = AuthorList(author_list);
 // }
 
+// User interface for LiteratureElement creation
+bool LiteratureElement::create_literature_element()
+{
+  // Set the title
+  string _title{lit_cat_utils::get_string_from_user("title")};
+  if(_title.empty())
+  {
+    std::cout<<"Title incomplete, could not proceed."<<std::endl;
+    return false;
+  }
+  else title = _title;
+  // Set the authors
+  int num_authors{lit_cat_utils::prompt_for_valid_positive_num<int>(10, 40, "number of authors")};
+  if(num_authors==-1 || num_authors==0)
+  {
+    std::cout<<"Author list incomplete, could not proceed"<<std::endl;
+    return false;
+  }
+  // .. create authors until num_authors reached
+  for(int i{0}; i<num_authors; i++)
+  {
+    Author new_author;
+    new_author.create_author();
+    add_author(new_author);
+  }
+  return true;
+}
+
 // Operator <, for use when adding elements to the catalogue
 bool LiteratureElement::operator<(const LiteratureElement& right_hand_element) const
 {
