@@ -22,8 +22,8 @@ namespace lit_cat_utils
       std::cin>>input;
       to_lowercase(input);// Convert the input to lowercase
       
-      if (input=="yes" || input=="y") return true;
-      else if (input=="no" || input=="n") return false;
+      if(input=="yes" || input=="y") return true;
+      else if(input=="no" || input=="n") return false;
       else
       {
         std::cout<<"Invalid input. Please enter 'yes' or 'no' (or y/n): ";

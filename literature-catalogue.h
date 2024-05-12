@@ -12,6 +12,7 @@
 #include <memory> // smart pointers
 #include <iostream>
 #include <initializer_list>
+#include <limits> // numeric_limits
 #include "lit_cat_utils.h"
 #include "literature-element.h"
 using std::shared_ptr;
@@ -32,6 +33,10 @@ namespace catalogue_utils
 {
   // Function to get a field type from the user
   search_field get_field_from_user();
+  // Function to get an author name field from the user
+  author_name_fields get_author_name_field_from_user();
+  // Function to get a query string from the user
+  string get_query_from_user();
 }
 
 // Create the Catalogue class
@@ -40,6 +45,9 @@ class Catalogue
 private:
   set<lit_elem_ptr> catalogue;
   size_t num_entries;
+  void search_author();
+  // void search_title();
+  // void search_type();
 public:
   // Rule of 5
   // .. Default constructor

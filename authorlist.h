@@ -62,7 +62,7 @@ public:
   shared_ptr<const Author> get_author() const;
 
   // Search Function
-  bool search_authors(const author_name_fields& field, const std::string_view& query);
+  bool search_authors(const author_name_fields& field, const std::string_view& query) const;
 
   // Print Information
   void print_authors() const;

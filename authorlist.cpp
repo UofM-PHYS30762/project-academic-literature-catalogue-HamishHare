@@ -226,7 +226,8 @@ shared_ptr<const Author> AuthorList::get_author() const
 }
 
 // Search Function
-bool AuthorList::search_authors(const author_name_fields& field, const std::string_view& query)
+bool AuthorList::search_authors(const author_name_fields& field,
+                                const std::string_view& query) const
 {
   bool found{false};
   // Loop through each author in the list
