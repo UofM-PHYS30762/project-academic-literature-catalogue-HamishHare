@@ -310,6 +310,20 @@ void Journal::print_scope() const
   std::cout<<std::endl;
 }
 
+// Saving
+void Journal::save(std::ofstream& outfile)
+{
+  LiteratureElement::save(outfile);
+  outfile<<"IMPACT\t"<<impact_factor<<"\n";
+  outfile<<"VOLUMES\t"<<num_volumes<<"\n";
+  outfile<<"CONTRIBUTORS\t"<<num_contributors<<"\n";
+  outfile<<"PAPERS\t"<<num_papers<<"\n";
+  for(auto area{scope.begin()}; area!=scope.end(); area++)
+  {
+    outfile<<"SCOPE\t"<<*area<<"\n";
+  }
+}
+
 // Print Information
 void Journal::print_info()
 {

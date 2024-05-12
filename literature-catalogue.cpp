@@ -5,7 +5,7 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Hamish Hare
 
-#include "literature-catalogue.h"
+#include "literature-catalogue-TEMP.h"
 
 // Utility functions
 namespace catalogue_utils
@@ -416,6 +416,154 @@ void Catalogue::search_type()
                     
   // Output the results of the search
   print_catalogue(filter);
+}
+
+// Save/Load functions
+// .. save
+void Catalogue::save_catalogue(const std::filesystem::path& filename) const
+{
+  // Open the file for writing
+  std::ofstream outfile(filename, std::ios::binary);
+  if(!outfile)
+  {
+    std::cerr<<"Error: Unable to open file for writing"<<std::endl;
+    return;
+  }
+
+  // Write the number of entries in the catalogue
+  outfile<<"NUMENTRIES\t"<<num_entries<<"\n";
+  size_t count{0};
+
+  // Write each literature element
+  for(const auto& entry : catalogue)
+  {
+    // Start the entry
+    count++;
+    outfile<<"STARTENTRY\n";
+    // Save the features
+    entry->save(outfile);
+  }
+
+  // Output a message for the success
+  std::cout<<"Catalogue saved successfully. ("<<count<<"/"<<num_entries<<")"<<std::endl;
+}
+// .. load
+// NOTE: A VERY BRUTE FORCE SOLUTION! (SORRY)
+void Catalogue::load_catalogue(const std::filesystem::path& filename)
+{
+  // Open the file for reading
+  std::ifstream infile(filename, std::ios::binary);
+  if(!infile)
+  {
+    std::cerr<<"Error: Unable to open file for reading\n";
+    return;
+  }
+
+  // Clear existing catalogue
+  catalogue.clear();
+
+  size_t num_entries = 0;
+  string line;
+  while(std::getline(infile, line))
+  {
+    if(line.find("NUMENTRIES\t") != std::string::npos)
+    {
+      size_t pos = line.find('\t');
+      if(pos != std::string::npos)
+      {
+        num_entries = std::stoull(line.substr(pos + 1));
+        std::cout<<"Number of entries: "<<num_entries<<std::endl;
+      }
+      else std::cerr<<"Error: Invalid format for NUMENTRIES line"<<std::endl;;
+    }
+    else if(line=="STARTENTRY")
+    {
+      size_t type = 0;
+      string title;
+      AuthorList authors;
+      string publisher;
+      string subject;
+      float price = 0.0;
+      float impact = 0.0;
+      int volumes = 0;
+      int contributors = 0;
+      int papers = 0;
+      set<string> scope;
+
+      while(std::getline(infile, line))
+      {
+        if(line=="STARTENTRY") break;
+        else
+        {
+          size_t pos = line.find('\t');
+          if(pos != std::string::npos)
+          {
+            std::string key = line.substr(0, pos);
+            std::string value = line.substr(pos + 1);
+            // Handle different keys appropriately
+            if(key=="TYPE") type = std::stoull(value);
+            else if(key=="TITLE") title = value;
+            else if(key=="FIRSTNAME")
+            {
+              std::string firstname = value;
+              std::getline(infile, line); // Read MIDNAMES line
+              size_t pos2 = line.find('\t');
+              if(pos2 != std::string::npos)
+              {
+                std::string midnames = line.substr(pos2 + 1);
+                std::getline(infile, line); // Read LASTNAME line
+                size_t pos3 = line.find('\t');
+                if(pos3 != std::string::npos)
+                {
+                  std::string lastname = line.substr(pos3 + 1);
+                  authors.add_author(Author(firstname, midnames, lastname));
+                }
+                else std::cerr<<"Error: Invalid format for LASTNAME line"<<std::endl;
+              }
+              else std::cerr << "Error: Invalid format for MIDNAMES line"<<std::endl;
+            }
+            else if(key == "PUBLISHER") publisher = value;
+            else if(key == "SUBJECT") subject = value;
+            else if(key == "PRICE") price = std::stof(value);
+            else if(key == "IMPACT") impact = std::stof(value);
+            else if(key == "VOLUMES") volumes = std::stoi(value);
+            else if(key == "CONTRIBUTORS") contributors = std::stoi(value);
+            else if (key == "PAPERS") papers = std::stoi(value);
+            else if (key == "SCOPE") scope.insert(value);
+          } 
+          else std::cerr<<"Error: Invalid format for line"<<std::endl;
+        }
+      }
+
+      // Create correct objects based on type
+      if(type==1)
+      {
+        // Create a Book object
+        Book book(title, authors, publisher, subject, price);
+        // book.print_info();
+        add_entry(std::make_shared<Book>(book));
+      }
+      else if(type==2)
+      {
+        // Create a Thesis object
+        Thesis thesis(title, authors, publisher, subject);
+        // thesis.print_info();
+        add_entry(std::make_shared<Thesis>(thesis));
+      }
+      else if(type==3)
+      {
+        // Create a Journal object
+        Journal journal(title, authors, impact, volumes, contributors, papers, scope);
+        // journal.print_info();
+        add_entry(std::make_shared<Journal>(journal));
+      }
+    }
+  }
+
+  // Close the file
+  infile.close();
+
+  std::cout<<"Catalogue loaded."<<std::endl;
 }
 
 // Print Information

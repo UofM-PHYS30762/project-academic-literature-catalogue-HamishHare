@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <memory> // for smart pointers
+#include <fstream> // for saving/loading from file
 #include "lit_cat_utils.h"
 #include "authorlist.h"
 using std::set;
@@ -74,6 +75,9 @@ public:
 
   // Operator <, for use when adding elements to the catalogue
   bool operator<(const LiteratureElement& right_hand_element) const;
+
+  // Saving
+  virtual void save(std::ofstream& outfile) = 0;
 
   // Print Information
   virtual void print_info() = 0;

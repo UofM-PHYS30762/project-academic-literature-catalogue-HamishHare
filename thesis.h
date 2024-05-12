@@ -47,6 +47,9 @@ public:
 
   bool create_thesis(); // User interface for setting elements
 
+  // Saving
+  void save(std::ofstream& outfile);
+
   // Print information
   void print_info();
 };

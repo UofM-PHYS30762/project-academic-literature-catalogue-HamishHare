@@ -145,6 +145,15 @@ bool Book::create_book()
   return true;
 }
 
+// Saving
+void Book::save(std::ofstream& outfile)
+{
+  LiteratureElement::save(outfile);
+  outfile<<"PUBLISHER\t"<<publisher<<"\n";
+  outfile<<"SUBJECT\t"<<subject<<"\n";
+  outfile<<"PRICE\t"<<price<<"\n";
+}
+
 // Print Information
 void Book::print_info()
 {

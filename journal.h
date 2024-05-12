@@ -71,6 +71,9 @@ public:
 
   bool create_journal(); // User interface for setting elements
 
+  // Saving
+  void save(std::ofstream& outfile);
+
   // Print information
   void print_info();
 };

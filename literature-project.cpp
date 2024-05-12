@@ -6,6 +6,7 @@
 // Hamish Hare
 
 #include <memory> // smart pointers
+#include <filesystem> // file paths
 #include "authors.h"
 #include "authorlist.h"
 #include "literature-element.h"
@@ -81,7 +82,23 @@ int main()
   // c2.remove_entry();
   // c2.print_catalogue();
 
-  c2.add_entry();
+  // c2.add_entry();
+  
+  // Get the current working directory
+  std::filesystem::path current_dir = std::filesystem::current_path();
+  std::filesystem::path file_path = current_dir / "test";
+  string file_path_str = file_path.string();
+
+  // Print the current working directory
+  std::cout<<"File path: "<<file_path_str<<std::endl;
+
+  // Save the catalogue to a file
+  c2.save_catalogue("catalogue_data.bin");
+  // Create blank catalogue
+  Catalogue cx;
+  // Load the catalogue from the file
+  cx.load_catalogue("catalogue_data.bin");
+  cx.print_catalogue();
 
   // Catalogue c4{c3};
   // c4.print_catalogue();
@@ -96,29 +113,6 @@ int main()
   // c7 = std::move(c3);
   // c7.print_catalogue();
   // c3.print_catalogue();
-
-
-  // Ro5:
-  // Journal j1; // default constr.
-  // j1.print_info();
-  // Journal j2{"Food Studies", AuthorList{a1, a3},
-  //            1.21212, 4, 1000, 567,
-  //            set<string>{"Pancakes", "Sandwiches",
-  //            "Eggs", "Fruits"}}; // param constr.
-  // j2.print_info();
-  // Journal j3{j2}; // copy constr.
-  // j3.print_info();
-  // Journal j4{std::move(j2)}; // move constr.
-  // j4.print_info();
-  // j2.print_info();
-  // Journal j5; // copy =
-  // j5.print_info();
-  // j5 = j2;
-  // j5.print_info();
-  // Journal j6; // move =
-  // j6 = std::move(j2);
-  // j6.print_info();
-  // j2.print_info();
 
   return 0;
 }

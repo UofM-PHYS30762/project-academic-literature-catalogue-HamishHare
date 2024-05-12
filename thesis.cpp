@@ -103,6 +103,14 @@ bool Thesis::create_thesis()
   return true;
 }
 
+// Saving
+void Thesis::save(std::ofstream& outfile)
+{
+  LiteratureElement::save(outfile);
+  outfile<<"SUPERVISOR\t"<<supervisor<<"\n";
+  outfile<<"UNIVERSITY\t"<<university<<"\n";
+}
+
 // Print Information
 void Thesis::print_info()
 {

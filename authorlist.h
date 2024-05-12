@@ -60,6 +60,7 @@ public:
   void remove_author();
   shared_ptr<const Author> get_author_at(const size_t index_to_get) const;
   shared_ptr<const Author> get_author() const;
+  size_t size(){return authors.size();}
 
   // Search Function
   bool search_authors(const author_name_fields& field, const std::string_view& query) const;

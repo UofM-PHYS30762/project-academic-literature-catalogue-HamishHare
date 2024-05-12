@@ -15,6 +15,9 @@
 #include <limits> // numeric_limits
 #include <functional> // to pass in functions as args
 #include <string>
+#include <fstream> // for saving/loading from file 
+#include <filesystem> // file paths
+#include <sstream>
 #include "lit_cat_utils.h"
 #include "literature-element.h"
 #include "book.h"
@@ -86,6 +89,9 @@ public:
 
   // Functionality
   void search();
+  // Save/Load functions
+  void save_catalogue(const std::filesystem::path& filename) const;
+  void load_catalogue(const std::filesystem::path& filename);
 
   // Print Information
   void print_catalogue(); // Public interface, calls private one but prints everything

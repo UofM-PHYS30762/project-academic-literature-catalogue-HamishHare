@@ -159,6 +159,24 @@ bool LiteratureElement::operator<(const LiteratureElement& right_hand_element) c
   return unique_id < right_hand_element.unique_id;
 }
 
+// Saving
+void LiteratureElement::save(std::ofstream& outfile)
+{
+  // Write the base class details
+  // Write the type
+  outfile<<"TYPE\t"<<type<<"\n";
+  // .. title
+  outfile<<"TITLE\t"<<title<<"\n";
+  // .. authors
+  for(size_t i{0}; i<authors.size(); i++)
+  {
+    Author author{*authors.get_author_at(i)};
+    outfile<<"FIRSTNAME\t"<<author.get_first_name()<<"\n";
+    outfile<<"MIDNAMES\t"<<author.get_middle_names()<<"\n";
+    outfile<<"LASTNAME\t"<<author.get_last_name()<<"\n";
+  }
+}
+
 // Function to get the string associated with a book type
 string LiteratureElement::get_type_string() const
 {

@@ -53,6 +53,9 @@ public:
 
   bool create_book(); // User interface for setting elements
 
+  // Saving
+  void save(std::ofstream& outfile);
+
   // Print information
   void print_info();
 };
