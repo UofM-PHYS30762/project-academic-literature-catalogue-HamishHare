@@ -260,16 +260,16 @@ void Catalogue::add_entry()
     }
     else return;
   }
-  // else if(type==JOURNAL)
-  // {
-  //   Jounal journal_to_add;
-  //   if(journal_to_add.create_thesis())
-  //   {
-  //     std::cout<<"Successfully added a Jounal."<<std::endl;
-  //     add_entry(std::make_shared<Jounal>(journal_to_add));
-  //   }
-  //   else return;
-  // }
+  else if(type==JOURNAL)
+  {
+    Journal journal_to_add;
+    if(journal_to_add.create_journal())
+    {
+      std::cout<<"Successfully added a Journal."<<std::endl;
+      add_entry(std::make_shared<Journal>(journal_to_add));
+    }
+    else return;
+  }
 }
 
 // .. remove an entry at a given index

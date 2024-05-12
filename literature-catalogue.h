@@ -19,6 +19,7 @@
 #include "literature-element.h"
 #include "book.h"
 #include "thesis.h"
+#include "journal.h"
 using std::shared_ptr;
 using std::string;
 

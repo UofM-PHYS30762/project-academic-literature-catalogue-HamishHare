@@ -69,6 +69,8 @@ public:
   void set_num_papers(const int& _num_papers);
   void set_scope(const set<string>& _scope);
 
+  bool create_journal(); // User interface for setting elements
+
   // Print information
   void print_info();
 };
