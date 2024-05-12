@@ -136,7 +136,15 @@ namespace main_utils
 
 int main()
 {
+  // Load in the catalogue
   Catalogue catalogue{prepare_sample_catalogue()};
+
+  // Uncomment this instead to try loading from a file
+  // // Get the current working directory
+  // std::filesystem::path current_dir = std::filesystem::current_path();
+  // std::filesystem::path file_path = current_dir / "sample_catalogue.txt";
+  // Catalogue catalogue;
+  // catalogue.load_catalogue(file_path);
 
   bool still_browsing{true};
   main_option option{VIEW_FULL};
@@ -177,54 +185,6 @@ int main()
       break;
     }
   }
-
-  // Get the current working directory
-  // std::filesystem::path current_dir = std::filesystem::current_path();
-  // std::filesystem::path file_path = current_dir / "sample_catalogue.txt";
-  // cat.save_catalogue(file_path);
-  // cat.edit_entry();
-  // cat.search();
-  // cat.print_catalogue();
   
-  
-  // Trial Authors
-  // Author a1{"Rock", "And", "Roll"};
-  // Author a2{"Stock", "and a", "Poll"};
-  // Author a3{"I am", "A new", "Name-okay"};
-  // // Trial Book
-  // Book b0{"To Kill a Mockingbird", AuthorList{a3, a2, a1},
-  // "Publishing Company", "Fiction", 13.99};
-  // // Trial Thesis
-  // Thesis t0{"Cancer Cure", AuthorList{a1}, "Super Visor", "Universe City"};
-  // // Trial Journal
-  // Journal j0{"A Journal", AuthorList{a1, a1, a2, a3},
-  //            30.2, 2, 120, 80,
-  //            set<string>{"Astronomy", "Biophysics",
-  //            "Chemisty", "Applied Nuclear"}};
-  // // Trial Catalogue
-  // Catalogue c2{std::make_shared<Book>(b0),
-  //              std::make_shared<Thesis>(t0),
-  //              std::make_shared<Journal>(j0)};
-  // c2.print_catalogue();
-  // set<lit_elem_ptr> leSet{std::make_shared<Thesis>(t0),
-  //                         std::make_shared<Book>(b0)};
-  // Catalogue c3{leSet};
-  // c3.print_catalogue();
-  
-  // // Get the current working directory
-  // std::filesystem::path current_dir = std::filesystem::current_path();
-  // std::filesystem::path file_path = current_dir / "test_save.txt";
-
-  // // Print the current working directory
-  // std::cout<<"File path: "<<file_path<<std::endl;
-
-  // // Save the catalogue to a file
-  // c2.save_catalogue(file_path);
-  // // Create blank catalogue
-  // Catalogue cx;
-  // // Load the catalogue from the file
-  // cx.load_catalogue(file_path);
-  // cx.print_catalogue();
-
   return 0;
 }
